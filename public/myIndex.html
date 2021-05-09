@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网易云音乐</title>
+    <!-- 引入网页地址栏ico -->
+    <link rel="shortcut icon" href="data/img/ico.ico">
+    <!-- 重置css -->
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- 开头结尾css -->
+    <link rel="stylesheet" href="css/common.css">
+    <!-- 首页css -->
+    <link rel="stylesheet" href="css/index.css">
+    <!-- 自定义js -->
+    <script src="js/$.js"></script>
+    <!-- 功能js -->
+    <script src="js/function.js"></script>
+    <!-- 头尾相同部分js -->
+    <script src="js/common.js"></script>
+    <!-- 登录相关操作js -->
+    <script src="js/login.js"></script>
+    <!-- 音乐js -->
+    <script src="js/music.js"></script>
+    
+</head>
+<body>
+    <!-- 头部模块start -->
+    <div class="header">
+        <section class="shortcut ">
+            <div class="w clearMerge">
+                <a href="http://localhost:3000/myIndex.html" class="logo fl"></a>
+                <ul class="tab_list fl" id="tabList">
+                    <li class="pore">
+                        <a href="javascript:;" class="tabCurrent">发现音乐</a>
+                        <div class="cor poab" style="display: block;"></div>
+                    </li>
+                    <li class="pore">
+                        <a href="javascript:;">我的音乐</a>
+                        <div class="cor poab"></div>
+                    </li>
+                    <li class="pore">
+                        <a href="javascript:;">朋友</a>
+                        <div class="cor poab"></div>
+                    </li>
+                    <li class="pore">
+                        <a href="javascript:;">商场</a>
+                        <div class="cor poab"></div>
+                    </li>
+                    <li class="pore">
+                        <a href="javascript:;">音乐人</a>
+                        <div class="cor poab"></div>
+                    </li>
+                    <li class="headerDownload pore">
+                        <a href="javascript:;" >下载客户端</a>
+                        <div class="cor poab"></div>
+                        <span class="poab"></span>
+                    </li>
+                </ul>
+                <div class="input fl pore">
+                    <input type="search" class="search fl" placeholder="音乐/视频/电台/用户" id="search">
+                    <input type="button" id='searchBtn' value="搜索" class="searchBtn">
+                </div>
+                <div class="creater fl">创作者中心</div>
+                <!-- 登录之前 -->
+                <div class="preLoginBtnBox fl" id="preLoginBtnBox">
+                    <a href="javascript:;" id="preLoginBtn" class="hoverUnderline preLoginBtn">登录</a>
+                </div>
+                <!-- 登录之后 -->
+                <div class="logined fl pore hide" id="logined">
+                    <img src="data/img/eyeClose.png" alt="" id="loginedImg">
+                    <span class="poab">9</span>
+                    <ul class="poab loginedList hide" id="loginedList">
+                        <li><span></span><a href="javascript:;">我的主页</a></li>
+                        <li><span></span><a href="javascript:;">我的消息</a></li>
+                        <li><span></span><a href="javascript:;">我的等级</a></li>
+                        <li><span></span><a href="javascript:;">vip会员</a></li>
+                        <li><span></span><a href="javascript:;">个人设置</a></li>
+                        <li><span></span><a href="javascript:;">实名认证</a></li>
+                        <li><span></span><a href="javascript:;" id="loginOutBtn">退出</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="tab_list_item " id="tabListItems">
+            <div class="w">
+                <ul>
+                    <li><a href="javascipt:;"><span>推荐</span></a></li>
+                    <li><a href="javascipt:;"><span>排行榜</span></a></li>
+                    <li><a href="javascipt:;"><span>歌单</span></a></li>
+                    <li><a href="javascipt:;"><span>主播电台</span></a></li>
+                    <li><a href="javascipt:;"><span>歌手</span></a></li>
+                    <li><a href="javascipt:;"><span>新碟上架</span></a></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <!-- 头部模块end -->
+
+    <!-- 登录填写模块start -->
+    <div class="loginBox hide" id="loginBox">
+        <header class="move">手机号注册<span class="cancel icomoon fr" id="cancel"></span></header>
+        <section>
+            <!-- 输入 -->
+            <div class="groupFormBox clearMerge">
+                <ul class="groupForm">
+                    <!-- 输入手机号与下拉框 -->
+                    <li class="pore">
+                        <div class="select poab pointer" id="select"><span>+86</span><span class="selectNext"></span></div>
+                        <input type="phone" class="phone" id="phoneInp" placeholder="请输入手机号">
+                        <div class="poab selectContentBox hide" id="selectContentBox">
+                           <ul id="selectUl">
+                               <li>
+                                   <span class="fl">中国</span>
+                                   <span class="fr">+86</span>
+                               </li>
+                               <li>
+                                <span class="fl">中国香港</span>
+                                <span class="fr">+852</span>
+                                </li>
+                                <li>
+                                    <span class="fl">中国澳门</span>
+                                    <span class="fr">+853</span>
+                                </li>
+                                <li>
+                                    <span class="fl">中国台湾</span>
+                                    <span class="fr">+886</span>
+                                </li>
+                                <li>
+                                    <span class="fl">阿尔巴尼亚</span>
+                                    <span class="fr">+355</span>
+                                </li>
+                           </ul>
+                        </div>
+                    </li>
+                    <!-- 输入密码 -->
+                    <li class="passwordBox pore">
+                        <form>
+                            <input type="password" id="passwordInp" placeholder="请输入密码" autocomplete>
+                        </form>
+                        <label for="">
+                            <img src="data/img/eyeClose.png" alt="" id="eye">
+                        </label>
+                    </li>
+                    <!-- 报错信息(错误时类名：wrong) -->
+                    <li class="hide message" id="message">
+                        <p></p>
+                    </li>
+                    <!-- 自动登录与忘记密码 -->
+                    <li class="autoForget">
+                        <span class="auto fl">
+                            <input type="checkbox" class="checkbox clearMerge">自动登录
+                        </span>
+                        <span class="forget fr">
+                            <a href="javascript:;">忘记密码?</a>
+                        </span>
+                    </li>
+                    <li class="loginBtn pointer" id="loginBtn">登&nbsp;&nbsp;&nbsp;录</li>
+                </ul>
+            </div>
+            <!-- 其他登录方式 -->
+            <div class="else">
+                <a href="javasctipt:;" class="fl">&lt;  其他登录方式</a>
+                <a href="javasctipt:;" class="fr">没有帐号？免费注册  &gt;</a>
+            </div>
+        </section>
+    </div>
+    <!-- 遮挡层 -->
+    <div class="loginBg hide" id="loginBg"></div>
+    <!-- 登录填写模块end -->
+
+    <!-- 返回顶部start -->
+    <div class="returnTop hide" id="returnTop"></div>
+    <!-- 返回顶部end -->
+
+    <!-- 轮播图模块start -->
+    <div class="main">
+        <div class="w">
+        <!-- 轮播图start -->
+        <section class="focus fl">
+            <ul>
+                <li>
+                    <img src="data/img/focus1.jpg" alt="">
+                </li>
+            </ul>
+        </section>
+        <!-- 轮播图end -->
+        <!-- 下载客户端start -->
+        <section class="download fl">
+            <img src="data/img/download.png" alt="">
+        </section>
+        <!-- 下载客户端end -->
+        </div>
+    </div>
+    <!-- 轮播图模块end -->
+
+    <!-- floor模块start -->
+    <section class="floor">
+        <div class="w">
+            123
+            <!-- 自制音乐盒子start -->
+            <section class="musicBox">
+                <!-- audio -->
+                <audio id="audio" controls ></audio>
+                <!-- audio -->
+
+                <div id="myAudio" class="myAudio" >
+                    <!-- 播放控件start -->
+                    <!-- 播放与停止 -->
+                    <button id="playBtn" class="playBtn">播放</button>
+                    <!-- 单曲循环 -->
+                    <button id="loopBtn" class="loopBtn">单曲循环</button>
+                    <!-- 播放控件end -->
+
+                    <!-- 播放时间start -->
+                    <div id="timeInfo" class="timeInfo"></div>
+                    <!-- 播放时间end -->
+                    
+                    <!-- 播放控件end -->
+
+                    <!-- 进度条start -->
+                    <div id="bar" class="bar">
+                        <div id="progress" class="progress pore">
+                            <span id="barSpan" class="barSpan poab hide"></span>
+                        </div>
+                    </div>
+                    <!-- 进度条end -->
+                </div>
+            </section>
+            <!-- 自制音乐盒子end  -->
+            
+        </div>
+    </section>
+    <!-- floor模块end -->
+
+    <!-- 尾部start -->
+    <footer class="footer">
+        <div class="w">
+            <section class="copy fl">
+                <p class="link">
+                    <span class="border">|</span>
+                    <a href="javascript:;"> 服务条款 </a>
+                    <span class="border">|</span>
+                    <a href="javascript:;"> 隐私政策 </a>
+                    <span class="border">|</span>
+                    <a href="javascript:;"> 儿童隐私政策 </a>
+                    <span class="border">|</span>
+                    <a href="javascript:;"> 版权投诉指引 </a>
+                    <span class="border">|</span>
+                    <a href="javascript:;"> 意见反馈 </a>
+                    <span class="border">|</span>
+                </p>
+                <p>网易公司版权所有©1997-2021杭州乐读科技有限公司运营：<a href="javascript:;" class="hoverUnderline">浙网文[2021] 1186-054号</a></p>
+                <p>违法和不良信息举报电话：0571-89853516 举报邮箱：<a href="javascript:;" class="hoverUnderline">ncm5990@163.com</a></p>
+                <p>粤B2-20090191-18  工业和信息化部备案管理系统网站 <a href="javascript:;" class="hoverUnderline"><span></span>浙公网安备 33010902002564号</a></p>
+            </section>
+            <ul class="enter fl">
+                <li>
+                    <a href="">
+                        <div></div>
+                        <p></p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div></div>
+                        <p></p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div></div>
+                        <p></p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div></div>
+                        <p></p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div></div>
+                        <p></p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <!-- 尾部end -->
+    
+</body>
+</html>

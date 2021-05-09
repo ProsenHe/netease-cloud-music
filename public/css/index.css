@@ -1,0 +1,33 @@
+/* 首页样式 */
+/* 轮播图模块start */
+.main {
+    height: 285px;
+    background: url(../data/img/main.jpg) center;
+    background-size: 6000px;
+}
+
+.main .focus {
+    width: 730px;
+}
+
+.main .focus img {
+    width: 730px;
+}
+
+.main .download {
+    width: 254px;
+    height: 284px;
+    overflow: hidden;
+}
+
+.main .download img {
+    width: 254px;
+}
+
+/* 轮播图模块end */
+/* floor模块tart */
+.floor {
+    height: 1000px;
+}
+
+/* floor模块end */

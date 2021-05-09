@@ -1,0 +1,69 @@
+/* 用户信息start */
+.userInfo {
+    width: 1200px;
+    height: 132px;
+    border: solid 1px #ccc;
+}
+
+.userInfo li {
+    float: left;
+    width: 140px;
+    height: 50px;
+}
+
+/* 用户信息end */
+
+/* 听歌排行榜start */
+.songList {
+    width: 1200px;
+    height: 100px;
+    border: solid 1px #ccc;
+}
+
+.songList li {
+    width: 250px;
+    height: 20px;
+    padding-left: 10px;
+}
+
+.num {
+    color: #ccc;
+    font-size: 15px;
+}
+
+.songName {
+    display: inline;
+    color: #000;
+    font-size: 15px;
+    margin: 10px;
+}
+
+.songArt {
+    display: inline;
+    color: #ccc;
+    font-size: 12px;
+}
+
+/* 听歌排行榜end */
+
+/* 歌单内部样式start */
+.createdPlaylist,
+.subPlaylist {
+    width: 1200px;
+    height: 200px;
+    border: solid 1px #ccc;
+}
+
+.songsli {
+    float: left;
+    width: 140px;
+    height: 160px;
+    margin-right: 50px;
+}
+
+.songsImg {
+    height: 140px;
+    width: 140px;
+}
+
+/* 歌单内部样式end */

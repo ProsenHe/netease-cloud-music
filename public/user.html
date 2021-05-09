@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网易云音乐用户界面</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/user.css">
+    <script src="js/$.js"></script>
+    <script src="js/function.js"></script>
+</head>
+<body>
+    <!-- 登录start -->
+    <div class="login">
+        <form>
+            <label for="">手机号码：</label>
+            <input type="phone" id="phoneInp" autocomplete>
+            <label for="">密码：</label>
+            <input type="password" id="passwordInp" autocomplete>
+            <input type="button" id="lgnBtn" class="loginButton" value="登录">
+        </form>
+        <p id="loginFeedback"></p>
+    </div>
+    <button id="check">查看登录状态</button>
+    <button id="out">退出登录</button>
+    <!-- 登录end -->
+
+    <button id="checkinfo">查看用户信息</button>
+    <button id="checksong">查看用户歌单</button>
+    <button id="history">获取听歌排行</button>
+
+    <!-- 用户信息start -->
+    <div class="userInfo">
+        <ul>
+            <li><img id="userImg"></li>
+            <li id="username"></li>
+            <li id="level"></li>
+            <li id="gender"></li>
+            <li id="province"></li>
+            <li id="signature"></li>
+            <li id="listenSongs"></li>
+        </ul>
+
+        <!-- 关注列表start -->
+        <div id="follows"></div>
+        <!-- 关注列表end -->
+        
+        <!-- 动态列表start -->
+        <div id="event"></div>
+        <!-- 动态列表end -->
+        
+        <!-- 粉丝列表start -->
+        <div id="followed"></div>
+        <!-- 粉丝列表end -->
+    </div>
+    <!-- 用户信息end -->
+
+    <!-- 听歌排行start -->
+    <ul id="songList" class="songList">
+    </ul>
+    <!-- 听歌排行end -->
+
+    <!-- 歌单信息start -->
+    <div class="songsinfo">
+        <!-- 我创建的歌单start -->
+        <div id="createdPlaylist" class="createdPlaylist">
+            <h3></h3>
+            <!-- 类名songs name-->
+            <ul>
+            </ul>
+        </div>
+        <!-- 我创建的歌单end -->
+
+        <!-- 我收藏的歌单start -->
+        <div id="subPlaylist" class="subPlaylist">
+            <h3></h3>
+            <ul>
+            </ul>
+        </div>
+        <!-- 我收藏的歌单end -->
+    </div>
+    <!-- 歌单信息end -->
+
+    <script>
+        let uid=1367105362;
+        //获取听歌排行start
+        let history=$get('#history');//btn
+        let songList=$get('#songList');
+        history.addEventListener('click',function(){
+            ajax({
+                url:'/user/record',
+                data:{
+                    uid:1367105362,
+                    type:1
+                },
+                success:function(data){
+                    for(let i=0;i<data.weekData.length;i++){
+                        let li=$create('li');
+                        li.value=data.weekData[i].song.id;
+                        let num=$create('span');
+                        num.innerHTML=i+1+'.';
+                        num.className='num';
+                        let songName=$create('span');
+                        songName.innerHTML=data.weekData[i].song.name;
+                        songName.className='songName';
+                        let songArt=$create('span');
+                        songArt.innerHTML='-'+data.weekData[i].song.ar[0].name;
+                        songArt.className='songArt';
+                        li.appendChild(num);
+                        li.appendChild(songName);
+                        li.appendChild(songArt)
+                        songList.appendChild(li);
+                    }
+                }
+            })
+        })
+        //获取听歌排行end
+
+        //登录start
+        let phoneInp=$get('#phoneInp');
+        let passwordInp=$get('#passwordInp');
+        let lgnBtn=$get('#lgnBtn');
+        let loginFeedback=$get("#loginFeedback");
+        lgnBtn.onclick=function(){
+            let phone=phoneInp.value;
+            let password=passwordInp.value;
+            ajax({
+                type:'post',
+                url:'/login/cellphone',
+                data:{
+                    phone:phone,
+                    password:password,
+                },
+                success:function(result){
+                    console.log(result.account);
+                    if(!result.account){
+                        return loginFeedback.innerHTML='用户未注册';
+                    }
+                    uid=result.account.id;
+                    loginFeedback.innerHTML='登录成功';
+                    console.log('logined');
+                },
+            })
+        };
+        //登录end
+
+        //查看登陆状态start
+        let check=$get('#check');
+        check.onclick=function(){
+            ajax({
+                url:'/login/status',
+                success:function(result){
+                    if(result.data.account==null){
+                        alert('未登录');
+                    }else{
+                        alert('已登录');
+                    }
+                }
+            })
+        }
+        //查看登陆状态end
+
+        //退出登录start
+        let out=$get('#out');
+        out.onclick=function(){
+            ajax({
+                url:'/logout',
+                success:function(result){
+                    console.log(result);
+                    uid=0;//退出登陆后清除用户id
+                }
+            })
+        }
+        //退出登录end
+
+        //获取用户信息start(不需要登录，直接传递uid)
+        let checkinfo=$get('#checkinfo');
+        let userImg=$get('#userImg');
+        let username=$get('#username');
+        let level=$get('#level');
+        let gender=$get('#gender');
+        let province=$get('#province');
+        let signature=$get('#signature');
+        let listenSongs=$get('#listenSongs');
+        let follows=$get('#follows');
+        let followed=$get('#followed');
+        let event=$get('#event');
+        checkinfo.addEventListener('click',function(){
+            if(uid==0){
+                return alert('请先登录');
+            }
+            ajax({
+                url:'/user/detail',
+                data:{
+                    uid:uid
+                },
+                success:function(data){
+                    userImg.src=data.profile.avatarUrl;//显示图片
+                    username.innerHTML='名称:'+data.profile.nickname;
+                    level.innerHTML='等级：'+data.level;
+                    gender.innerHTML='性别：'+data.profile.gender;//0未知，1为男，2为女
+                    province.innerHTML='城市区域代码：'+data.profile.city;
+                    signature.innerHTML='个人介绍:'+data.profile.signature;
+                    listenSongs.innerHTML='听的歌曲：'+data.listenSongs;
+                    ajax({
+                        url:'/user/follows',
+                        data:{
+                            uid:uid
+                        },
+                        success:function(data){
+                            follows.innerHTML='关注：'+data.follow.length;
+                        }
+                    });
+                    ajax({
+                        url:'/user/followeds',
+                        data:{
+                            uid:uid
+                        },
+                        success:function(data){
+                            followed.innerHTML='粉丝：'+data.followeds.length;
+                        }
+                    });
+                    ajax({
+                        url:'/user/event',
+                        data:{
+                            uid:uid
+                        },
+                        success:function(data){
+                            event.innerHTML='动态：'+data.events.length;
+                        }
+                    })
+                }
+            })
+        })
+        //获取用户信息详情end
+
+        //获取用户歌单信息start
+        let list=$get('#list');
+        let subPlaylist=$get('#subPlaylist');
+        let createdPlaylist=$get('#createdPlaylist');
+        let created=0;//创建歌单的个数
+        let checksong=$get('#checksong');
+        checksong.addEventListener('click',function(){
+            if(uid==0){
+                return alert('请先登录');
+            }
+            ajax({//获取用户歌单收藏与创建数量
+                url:'/user/subcount',
+                success:function(data){
+                    created=data.createdPlaylistCount;
+                    createdPlaylist.children[0].innerHTML='我创建的歌单：'+created;
+                    subPlaylist.children[0].innerHTML='我收藏的歌单：'+data.subPlaylistCount;
+                    console.log(data);
+                    ajax({//获取用户歌单具体信息
+                        url:'/user/playlist',
+                        data:{
+                            uid:uid
+                        },
+                        success:function(data){
+                            console.log(data);
+                            for(let i=0;i<created;i++){
+                                let li=$create('li');
+                                li.className='songsli';
+                                let p=$create('p');
+                                p.innerHTML=data.playlist[i].name;
+                                let img=$create('img');
+                                img.className='songsImg';
+                                img.src=data.playlist[i].coverImgUrl;
+                                li.appendChild(img);
+                                li.appendChild(p);
+                                createdPlaylist.appendChild(li);
+                            }
+                            for(let i=created;i<data.playlist.length;i++){
+                                let li=$create('li');
+                                li.className='songsli';
+                                let p=$create('p');
+                                p.innerHTML=data.playlist[i].name;
+                                let img=$create('img');
+                                img.className='songsImg';
+                                img.src=data.playlist[i].coverImgUrl;
+                                li.appendChild(img);
+                                li.appendChild(p);
+                                subPlaylist.appendChild(li);
+                            }
+                        }
+                    })
+                }
+            })
+        })
+        //获取用户歌单end
+
+    </script>
+</body>
+</html>

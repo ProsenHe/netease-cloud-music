@@ -1,0 +1,141 @@
+/*  1.字体图标
+    2.默认标签设置
+    3.样式简写
+*/
+/* 字体图标引入 */
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.eot?5uo25e');
+    src: url('../fonts/icomoon.eot?5uo25e#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon.ttf?5uo25e') format('truetype'),
+        url('../fonts/icomoon.woff?5uo25e') format('woff'),
+        url('../fonts/icomoon.svg?5uo25e#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+/* 字体图标样式 */
+.icomoon {
+    font-family: 'icomoon';
+}
+
+/* 全域内外间距为0，使用盒子模型 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fff;
+    font-size: 12px;
+}
+
+/* 版心设置 */
+.w {
+    width: 990px;
+    margin: 0 auto;
+}
+
+/* 标签默认设置start */
+li {
+    list-style: none;
+}
+
+img {
+    vertical-align: middle;
+    /* 小图标与文字对齐或消除图片下方空隙 */
+}
+
+a {
+    color: #666;
+    text-decoration: none
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+button,
+input,
+select {
+    outline: 0;
+    /* 点击时无边框加粗 */
+}
+
+/* 标签默认设置end */
+
+/* 样式简写start */
+
+/* 定位 */
+.pore {
+    position: relative;
+}
+
+.poab {
+    position: absolute;
+}
+
+/* 浮动 */
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+/* 隐藏 */
+.hide {
+    display: none;
+}
+
+/* 消除浮动 */
+.clearfix:after {
+    visibility: hidden;
+    clear: both;
+    display: block;
+    content: ".";
+    height: 0;
+}
+
+/* 消除边框合并 */
+.clearMerge {
+    border: 1px solid transparent;
+}
+
+/* 鼠标放大镜样式 */
+.zoom-in {
+    cursor: zoom-in;
+}
+
+/* 字体红色 */
+.style_red {
+    color: #C81623;
+}
+
+/* 间隔线 */
+.border {
+    color: #ccc;
+}
+
+/* 经过下划线 */
+.hoverUnderline:hover {
+    text-decoration: underline;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.move {
+    cursor: move;
+}
+
+/* 显示 */
+.block {
+    display: block !important
+}
+
+/* 样式简写end */
