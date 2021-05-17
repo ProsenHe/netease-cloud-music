@@ -34,7 +34,7 @@ body {
 
 /* 版心设置 */
 .w {
-    width: 990px;
+    width: 985px;
     margin: 0 auto;
 }
 
@@ -44,6 +44,7 @@ li {
 }
 
 img {
+    border: 0;
     vertical-align: middle;
     /* 小图标与文字对齐或消除图片下方空隙 */
 }
@@ -60,6 +61,7 @@ a:hover {
 button,
 input,
 select {
+    border: 0;
     outline: 0;
     /* 点击时无边框加粗 */
 }
@@ -84,6 +86,11 @@ select {
 
 .fr {
     float: right;
+}
+
+/* 固定 */
+.fixed {
+    position: fixed;
 }
 
 /* 隐藏 */
@@ -118,6 +125,7 @@ select {
 /* 间隔线 */
 .border {
     color: #ccc;
+    padding: 0 6px;
 }
 
 /* 经过下划线 */
@@ -136,6 +144,11 @@ select {
 /* 显示 */
 .block {
     display: block !important
+}
+
+/* 转为行内块元素 */
+.inlineBlock {
+    display: inline-block;
 }
 
 /* 样式简写end */

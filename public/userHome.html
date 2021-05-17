@@ -4,314 +4,447 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户页</title>
-    <link rel="stylesheet" href="css/common.css">
+    <title>网易云音乐</title>
+    <!-- 引入网页地址栏ico -->
+    <link rel="shortcut icon" href="data/img/ico.ico">
+    <!-- 重置css -->
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/user.css">
+    <!-- 开头结尾css -->
+    <link rel="stylesheet" href="css/common.css">
+    <!-- 用户页css -->
+    <link rel="stylesheet" href="css/userHome.css">
+
+    <!-- 自定义js函数 -->
+    <script src="js/myFun.js"></script>
+    <!-- ajax相关函数 -->
+    <script src="js/ajaxFun.js"></script>
+    <!-- 头尾相同部分静态js -->
+    <script src="js/common.js"></script>
+    <!-- 登录动态操作js -->
     <script src="js/login.js"></script>
-    <script src="js/$.js"></script>
-    <script src="js/function.js"></script>
+    <!-- 音乐js -->
+    <script src="js/music.js"></script>
+    <!-- userHome的js -->
     <script src="js/userHome.js"></script>
 </head>
 <body>
-        <!-- 头部模块start -->
-        <div class="header">
-            <section class="shortcut ">
-                <div class="w clearMerge">
-                    <a href="http://localhost:3000/myIndex.html" class="logo fl"></a>
-                    <ul class="tab_list fl" id="tabList">
-                        <li class="pore">
-                            <a href="javascript:;" class="tabCurrent">发现音乐</a>
-                            <div class="cor poab" style="display: block;"></div>
-                        </li>
-                        <li class="pore">
-                            <a href="javascript:;">我的音乐</a>
-                            <div class="cor poab"></div>
-                        </li>
-                        <li class="pore">
-                            <a href="javascript:;">朋友</a>
-                            <div class="cor poab"></div>
-                        </li>
-                        <li class="pore">
-                            <a href="javascript:;">商场</a>
-                            <div class="cor poab"></div>
-                        </li>
-                        <li class="pore">
-                            <a href="javascript:;">音乐人</a>
-                            <div class="cor poab"></div>
-                        </li>
-                        <li class="headerDownload pore">
-                            <a href="javascript:;" >下载客户端</a>
-                            <div class="cor poab"></div>
-                            <span class="poab"></span>
-                        </li>
-                    </ul>
-                    <div class="input fl pore">
-                        <input type="search" class="search fl" placeholder="音乐/视频/电台/用户" id="search">
-                        <input type="button" id='searchBtn' value="搜索" class="searchBtn">
-                    </div>
-                    <div class="creater fl">创作者中心</div>
-                    <!-- 登录之前 -->
-                    <div class="preLoginBtnBox fl" id="preLoginBtnBox">
-                        <a href="javascript:;" id="preLoginBtn" class="hoverUnderline preLoginBtn">登录</a>
-                    </div>
-                    <!-- 登录之后 -->
-                    <div class="logined fl pore hide" id="logined">
-                        <img src="data/img/eyeClose.png" alt="" id="loginedImg">
-                        <span class="poab">9</span>
-                        <ul class="poab loginedList hide" id="loginedList">
-                            <li><span></span><a href="javascript:;">我的主页</a></li>
-                            <li><span></span><a href="javascript:;">我的消息</a></li>
-                            <li><span></span><a href="javascript:;">我的等级</a></li>
-                            <li><span></span><a href="javascript:;">vip会员</a></li>
-                            <li><span></span><a href="javascript:;">个人设置</a></li>
-                            <li><span></span><a href="javascript:;">实名认证</a></li>
-                            <li><span></span><a href="javascript:;" id="loginOutBtn">退出</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section class="tab_list_item " id="tabListItems">
-                <div class="w">
-                    <ul>
-                        <li><a href="javascipt:;"><span>推荐</span></a></li>
-                        <li><a href="javascipt:;"><span>排行榜</span></a></li>
-                        <li><a href="javascipt:;"><span>歌单</span></a></li>
-                        <li><a href="javascipt:;"><span>主播电台</span></a></li>
-                        <li><a href="javascipt:;"><span>歌手</span></a></li>
-                        <li><a href="javascipt:;"><span>新碟上架</span></a></li>
-                    </ul>
-                </div>
-            </section>
-        </div>
-        <!-- 头部模块end -->
-    
-        <!-- 登录填写模块start -->
-        <div class="loginBox hide" id="loginBox">
-            <header class="move">手机号注册<span class="cancel icomoon fr" id="cancel"></span></header>
-            <section>
-                <!-- 输入 -->
-                <div class="groupFormBox clearMerge">
-                    <ul class="groupForm">
-                        <!-- 输入手机号与下拉框 -->
-                        <li class="pore">
-                            <div class="select poab pointer" id="select"><span>+86</span><span class="selectNext"></span></div>
-                            <input type="phone" class="phone" id="phoneInp" placeholder="请输入手机号">
-                            <div class="poab selectContentBox hide" id="selectContentBox">
-                               <ul id="selectUl">
-                                   <li>
-                                       <span class="fl">中国</span>
-                                       <span class="fr">+86</span>
-                                   </li>
-                                   <li>
-                                    <span class="fl">中国香港</span>
-                                    <span class="fr">+852</span>
-                                    </li>
-                                    <li>
-                                        <span class="fl">中国澳门</span>
-                                        <span class="fr">+853</span>
-                                    </li>
-                                    <li>
-                                        <span class="fl">中国台湾</span>
-                                        <span class="fr">+886</span>
-                                    </li>
-                                    <li>
-                                        <span class="fl">阿尔巴尼亚</span>
-                                        <span class="fr">+355</span>
-                                    </li>
-                               </ul>
+    <!-- 头部模块start -->
+    <div class="header">
+        <section class="shortcut ">
+            <div class="w clearMerge">
+                <a href="http://localhost:3000/myIndex.html" class="logo fl"></a>
+                <ul class="tab_list fl" id="tabList">
+                    <li class="pore">
+                        <a href="javascript:;" id="indexBtn" >发现音乐</a>
+                        <div class="cor poab" ></div>
+                    </li>
+                    <li class="pore">
+                        <a href="javascript:;" id="myMusicBtn" >我的音乐</a>
+                        <div class="cor poab" ></div>
+                    </li>
+                    <li class="pore">
+                        <a href="javascript:;">朋友</a>
+                        <div class="cor poab"></div>
+                    </li>
+                    <li class="pore">
+                        <a href="javascript:;">商场</a>
+                        <div class="cor poab"></div>
+                    </li>
+                    <li class="pore">
+                        <a href="javascript:;">音乐人</a>
+                        <div class="cor poab"></div>
+                    </li>
+                    <li class="headerDownload pore">
+                        <a href="javascript:;" >下载客户端</a>
+                        <div class="cor poab"></div>
+                        <span class="poab"></span>
+                    </li>
+                </ul>
+                <div class="input fl pore">
+                    <input type="text" class="search fl" placeholder="音乐/视频/电台/用户" id="searchInp" autocomplete="off">
+                    <div class="searchAdviseBox poab hide" id="searchAdviseBox">
+                        <div class="boxHd">搜'<span id="searchAbout"></span> '相关用户></div>
+                        <div class="songAdviceBox clearfix boxItem">
+                            <div class="fl title"><div class="musicIco ico"></div>单曲</div>
+                            <div class="fl right">
+                                <ul class="songAdvice" id="songAdvice">
+                                    <!-- <li class='adviceLi'>
+                                        <span class="adviceSongName">1</span>-
+                                        <span class="adviceSongArt">2</span>
+                                    </li> -->
+                                </ul>
                             </div>
-                        </li>
-                        <!-- 输入密码 -->
-                        <li class="passwordBox pore">
-                            <form>
-                                <input type="password" id="passwordInp" placeholder="请输入密码" autocomplete>
-                            </form>
-                            <label for="">
-                                <img src="data/img/eyeClose.png" alt="" id="eye">
-                            </label>
-                        </li>
-                        <!-- 报错信息(错误时类名：wrong) -->
-                        <li class="hide message" id="message">
-                            <p></p>
-                        </li>
-                        <!-- 自动登录与忘记密码 -->
-                        <li class="autoForget">
-                            <span class="auto fl">
-                                <input type="checkbox" class="checkbox clearMerge">自动登录
-                            </span>
-                            <span class="forget fr">
-                                <a href="javascript:;">忘记密码?</a>
-                            </span>
-                        </li>
-                        <li class="loginBtn pointer" id="loginBtn">登&nbsp;&nbsp;&nbsp;录</li>
-                    </ul>
-                </div>
-                <!-- 其他登录方式 -->
-                <div class="else">
-                    <a href="javasctipt:;" class="fl">&lt;  其他登录方式</a>
-                    <a href="javasctipt:;" class="fr">没有帐号？免费注册  &gt;</a>
-                </div>
-            </section>
-        </div>
-        <!-- 遮挡层 -->
-        <div class="loginBg hide" id="loginBg"></div>
-        <!-- 登录填写模块end -->
-    
-        <!-- 返回顶部start -->
-        <div class="returnTop hide" id="returnTop"></div>
-        <!-- 返回顶部end -->
-    
-        <!-- floor模块start -->
-        <section class="floor">
-            <div class="w">
-            <!-- 相关按钮 -->
-            <button id="checkinfo">查看用户信息</button>
-            <button id="checksong">查看用户歌单</button>
-            <button id="history">获取听歌排行</button>
-
-            <!-- 用户信息start -->
-            <div class="userInfo">
-                <ul>
-                    <li><img id="userImg"></li>
-                    <li id="username"></li>
-                    <li id="level"></li>
-                    <li id="gender"></li>
-                    <li id="province"></li>
-                    <li id="signature"></li>
-                    <li id="listenSongs"></li>
-                </ul>
-
-                <!-- 关注列表start -->
-                <div id="follows"></div>
-                <!-- 关注列表end -->
-                
-                <!-- 动态列表start -->
-                <div id="event"></div>
-                <!-- 动态列表end -->
-                
-                <!-- 粉丝列表start -->
-                <div id="followed"></div>
-                <!-- 粉丝列表end -->
-            </div>
-            <!-- 用户信息end -->
-
-            <!-- 听歌排行start -->
-            <ul id="songList" class="songList">
-            </ul>
-            <!-- 听歌排行end -->
-
-            <!-- 歌单信息start -->
-            <div class="songsinfo">
-                <!-- 我创建的歌单start -->
-                <div id="createdPlaylist" class="createdPlaylist">
-                    <h3></h3>
-                    <!-- 类名songs name-->
-                    <ul>
-                    </ul>
-                </div>
-                <!-- 我创建的歌单end -->
-
-                <!-- 我收藏的歌单start -->
-                <div id="subPlaylist" class="subPlaylist">
-                    <h3></h3>
-                    <ul>
-                    </ul>
-                </div>
-                <!-- 我收藏的歌单end -->
-            </div>
-            <!-- 歌单信息end -->
-            </div>
-        </section>
-        <!-- floor模块end -->
-
-        <!-- 自制音乐盒子start -->
-        <section class="musicBox">
-            <!-- audio -->
-            <audio id="audio" controls ></audio>
-            <!-- audio -->
-
-            <div id="myAudio" class="myAudio" >
-                <!-- 播放控件start -->
-                <!-- 播放与停止 -->
-                <button id="playBtn" class="playBtn">播放</button>
-                <!-- 单曲循环 -->
-                <button id="loopBtn" class="loopBtn">单曲循环</button>
-                <!-- 播放控件end -->
-
-                <!-- 播放时间start -->
-                <div id="timeInfo" class="timeInfo"></div>
-                <!-- 播放时间end -->
-                
-                <!-- 播放控件end -->
-
-                <!-- 进度条start -->
-                <div id="bar" class="bar">
-                    <div id="progress" class="progress pore">
-                        <span id="barSpan" class="barSpan poab hide"></span>
+                        </div>
+                        <div class="albAdviceBox clearfix boxItem">
+                            <div class="fl title"><span class="albIco ico"></span>专辑</div>
+                            <div class="fl right">
+                                <ul class="albAdvice" id="albAdvice">
+                                    <!-- <li>12</li>
+                                    <li>12</li> -->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="listAdviceBox clearfix boxItem">
+                            <div class="fl title"><div class="listIco ico"></div>歌单</div>
+                            <div class="fl right">
+                                <ul class="listAdvice" id="listAdvice">
+                                    <!-- <li>12</li>
+                                    <li>12</li> -->
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- 进度条end -->
+                <div class="creater fl">创作者中心</div>
+                <!-- 登录之前 -->
+                <div class="preLoginBtnBox fl" id="preLoginBtnBox">
+                    <a href="javascript:;" id="preLoginBtn" class="hoverUnderline preLoginBtn">登录</a>
+                </div>
+                <!-- 登录之后 -->
+                <div class="logined fl pore hide" id="logined">
+                    <img  id="loginedImg">
+                    <span class="poab">9</span>
+                    <ul class="poab loginedList hide" id="loginedList">
+                        <li><span></span><a  id="userHomeBtn">我的主页</a></li>
+                        <li><span></span><a href="javascript:;">我的消息</a></li>
+                        <li><span></span><a href="javascript:;">我的等级</a></li>
+                        <li><span></span><a href="javascript:;">vip会员</a></li>
+                        <li><span></span><a href="javascript:;">个人设置</a></li>
+                        <li><span></span><a href="javascript:;">实名认证</a></li>
+                        <li><span></span><a href="javascript:;" id="loginOutBtn">退出</a></li>
+                    </ul>
+                </div>
             </div>
         </section>
-        <!-- 自制音乐盒子end  -->
-
-        <!-- 尾部start -->
-        <footer class="footer">
+        <section class="tab_list_item " id="tabListItems" style="height: 2px;">
             <div class="w">
-                <section class="copy fl">
-                    <p class="link">
-                        <span class="border">|</span>
-                        <a href="javascript:;"> 服务条款 </a>
-                        <span class="border">|</span>
-                        <a href="javascript:;"> 隐私政策 </a>
-                        <span class="border">|</span>
-                        <a href="javascript:;"> 儿童隐私政策 </a>
-                        <span class="border">|</span>
-                        <a href="javascript:;"> 版权投诉指引 </a>
-                        <span class="border">|</span>
-                        <a href="javascript:;"> 意见反馈 </a>
-                        <span class="border">|</span>
-                    </p>
-                    <p>网易公司版权所有©1997-2021杭州乐读科技有限公司运营：<a href="javascript:;" class="hoverUnderline">浙网文[2021] 1186-054号</a></p>
-                    <p>违法和不良信息举报电话：0571-89853516 举报邮箱：<a href="javascript:;" class="hoverUnderline">ncm5990@163.com</a></p>
-                    <p>粤B2-20090191-18  工业和信息化部备案管理系统网站 <a href="javascript:;" class="hoverUnderline"><span></span>浙公网安备 33010902002564号</a></p>
-                </section>
-                <ul class="enter fl">
-                    <li>
-                        <a href="">
-                            <div></div>
-                            <p></p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <div></div>
-                            <p></p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <div></div>
-                            <p></p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <div></div>
-                            <p></p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <div></div>
-                            <p></p>
-                        </a>
-                    </li>
+                <ul>
+                    <li><a href="javascipt:;"><span>推荐</span></a></li>
+                    <li><a href="javascipt:;"><span>排行榜</span></a></li>
+                    <li><a href="javascipt:;"><span>歌单</span></a></li>
+                    <li><a href="javascipt:;"><span>主播电台</span></a></li>
+                    <li><a href="javascipt:;"><span>歌手</span></a></li>
+                    <li><a href="javascipt:;"><span>新碟上架</span></a></li>
                 </ul>
             </div>
-        </footer>
-        <!-- 尾部end -->
-        
+        </section>
+    </div>
+    <!-- 头部模块end -->
+
+    <!-- 登录填写模块start -->
+    <div class="loginBox hide" id="loginBox">
+        <header class="move">手机号注册<span class="cancel icomoon fr" id="cancel"></span></header>
+        <section>
+            <!-- 输入 -->
+            <div class="groupFormBox clearMerge">
+                <ul class="groupForm">
+                    <!-- 输入手机号与下拉框 -->
+                    <li class="pore">
+                        <div class="select poab pointer" id="select"><span>+86</span><span class="selectNext"></span></div>
+                        <input type="phone" class="phone" id="phoneInp" placeholder="请输入手机号">
+                        <div class="poab selectContentBox hide" id="selectContentBox">
+                           <ul id="selectUl">
+                               <li>
+                                   <span class="fl">中国</span>
+                                   <span class="fr">+86</span>
+                               </li>
+                               <li>
+                                <span class="fl">中国香港</span>
+                                <span class="fr">+852</span>
+                                </li>
+                                <li>
+                                    <span class="fl">中国澳门</span>
+                                    <span class="fr">+853</span>
+                                </li>
+                                <li>
+                                    <span class="fl">中国台湾</span>
+                                    <span class="fr">+886</span>
+                                </li>
+                                <li>
+                                    <span class="fl">阿尔巴尼亚</span>
+                                    <span class="fr">+355</span>
+                                </li>
+                           </ul>
+                        </div>
+                    </li>
+                    <!-- 输入密码 -->
+                    <li class="passwordBox pore">
+                        <form>
+                            <input type="password" id="passwordInp" placeholder="请输入密码" autocomplete>
+                        </form>
+                        <label for="">
+                            <img src="data/img/eyeClose.png" alt="" id="eye">
+                        </label>
+                    </li>
+                    <!-- 报错信息(错误时类名：wrong) -->
+                    <li class="hide message" id="message">
+                        <p></p>
+                    </li>
+                    <!-- 自动登录与忘记密码 -->
+                    <li class="autoForget">
+                        <span class="auto fl">
+                            <input type="checkbox" class="checkbox clearMerge">自动登录
+                        </span>
+                        <span class="forget fr">
+                            <a href="javascript:;">忘记密码?</a>
+                        </span>
+                    </li>
+                    <li class="loginBtn pointer" id="loginBtn">登&nbsp;&nbsp;&nbsp;录</li>
+                </ul>
+            </div>
+            <!-- 其他登录方式 -->
+            <div class="else">
+                <a href="javasctipt:;" class="fl">&lt;  其他登录方式</a>
+                <a href="javasctipt:;" class="fr">没有帐号？免费注册  &gt;</a>
+            </div>
+        </section>
+    </div>
+    <!-- 遮挡层 -->
+    <div class="loginBg hide" id="loginBg"></div>
+    <!-- 登录填写模块end -->
+
+    <!-- 返回顶部start -->
+    <div class="returnTop hide" id="returnTop"></div>
+    <!-- 返回顶部end -->
+
+    <!-- floor模块start -->
+    <section class="floor clearfix">
+        <div class="w  floorLogined ">
+
+        <!-- 用户信息start -->
+        <div class="userInfoBox clearfix floorItem">
+            <div id="userImgBox" class="userImgBox fl">
+                <img id="userImg" class="userImg">
+            </div>
+            <ul class="userInfo fl">
+                <li class="userNameBox">
+                    <span id="username" class="username"></span>
+                    <span class="level" id="level"></span>
+                    <span class="gender" id="gender"></span>
+                    <span class="fr edit ">编辑个人资料</span>
+                </li>
+                <li class="followsLi">
+                    <span class="followsBox">
+                        <p id="event" class="event"></p>
+                        <p>动态</p>
+                    </span>
+                    <span class="followsBox">
+                        <p id="follows" class="follows"></p>
+                        <p>关注</p>
+                    </span>
+                    <span class="followsBox">
+                        <p id="followed" class="followed"></p>
+                        <p>粉丝</p>
+                    </span>
+                </li>
+                <li class="introduceBox">
+                    <p class="signature" >
+                        <span>个人介绍:&nbsp;</span>
+                        <span id="signature"></span>
+                    </p>
+                    <p id="province"></p>
+                    <p>
+                        <span>社交网络:</span>
+                        <span class="netIco"></span>
+                    </p>
+                </li>
+                <li id="listenSongs" class="hide"></li>
+            </ul>
+        </div>
+        <!-- 用户信息end -->
+
+        <!-- 听歌排行start -->
+        <div class="songListBox floorItem">
+            <div class="boxHd">
+                <div class="fl">
+                    <span class="title">听歌排行</span>
+                    累积听歌<span class=" playListSongNum"></span>首
+                </div>
+                <div class="fr">
+                    <span >最近一周</span>
+                    <span class="border">|</span>
+                    <span class="current">所有时间</span>
+                </div>
+            </div>
+            <div class="boxBd">
+                <ul id="songList" class="songList">
+                </ul>
+            </div>
+        </div>
+        <!-- 听歌排行end -->
+
+        <!-- 我创建的歌单start -->
+        <div class="songListBox floorItem createdPlaylistBox">
+            <div class="boxHd">
+                <div class="fl">
+                    <span class="title">我创建的歌单</span>
+                    <span id="createdPlayListNum" class="billNum"></span>
+                </div>
+            </div>
+            <div class="boxBd clearfix">
+                <ul id="createdPlaylist" ></ul>
+            </div>
+        </div>
+        <!-- 我创建的歌单end -->
+
+        <!-- 我收藏的歌单start -->
+        <div class="songListBox floorItem subPlaylistBox">
+            <div class="boxHd">
+                <div class="fl">
+                    <span class="title">我收藏的歌单</span>
+                    <span id="subPlaylistNum" class="billNum"></span>
+                </div>
+            </div>
+            <div class="boxBd clearfix">
+                <ul id="subPlaylist" ></ul>
+            </div>
+        </div>
+        <!-- 我收藏的歌单end -->
+
+        </div>
+    </section>
+    <!-- floor模块end -->
+
+     <!-- 自制音乐盒子start -->
+     <audio id="audio"></audio>
+     <section class="musicBox" id="musicBox">
+         <div class="w pore">
+             <ul>
+                 <!-- 控制：上一首、下一首、播放开关 -->
+                 <li class="controlsLeft ">
+                     <span class="preSong pointer" id="preSong"></span>
+                     <span class="playBtn pointer" id="playBtn"></span>
+                     <span class="nextSong pointer" id="nextSong"></span>
+                 </li>
+                 <!-- 音乐图片 -->
+                 <li class="barHeadBox">
+                     <span class="barHead">
+                         <img id="songPic" class="songPic" src="http://s4.music.126.net/style/web2/img/default/default_album.jpg">
+                     </span>
+                 </li>
+                 <!-- 进度条 -->
+                 <li class="barBox pore">
+                     <p>
+                         <a href="" class="songName barSongName" ></a>
+                         <a href="" class="songArt barSongArt" ></a>
+                     </p>
+                     <div class="bar pore" id="bar">
+                         <div class="progress poab" id="progress">
+                             <div class="barSpan poab hide" id="barspan"></div>
+                         </div>
+                     </div>
+                     <div class="timeInfo poab" id="timeInfo"> 
+                         <span class="songTimeCurrent" >00:00</span> /
+                         <span class="songTimeDuration songDuration" >00:00</span>
+                     </div>
+                 </li>
+                 <!-- 收藏与分享 -->
+                 <li class="open">
+                     <span class="songCollect"></span>
+                     <span class="songRecommend"></span>
+                 </li>
+                 <!-- 控制：音量、循环、播放列表 -->
+                 <li class="controlsRight">
+                     <span class="controlBorder"></span>
+                     <span class="volume"></span>
+                     <span class="loopBtn" id="loopBtn"></span>
+                     <span class="playListBtn" id="playListBtn"></span>
+                 </li>
+             </ul>
+             <div class="poab playListBox hide" id="playListBox">
+                 <div class="boxHd pore">
+                     <div class="fl headLeft pore"> 
+                         <div class="headTitle poab" id="playListTitle">播放列表</div>
+                         <div class="headCollect poab">
+                             <span class="headCollectImg"></span>
+                             收藏全部
+                         </div>
+                         <div class="headborder poab"></div>
+                         <div class="cancelAll poab">
+                             <span class="cancelAllImg"></span>
+                             清除
+                         </div>
+                     </div>
+                     <div class="fl headRight pore">
+                         <div class="songName"></div>
+                         <span class="playListCancel poab" id="playListCancel"></span>
+                     </div>
+                 </div>
+                 <div class="boxBd pore">
+                     <div class="playList fl" >
+                         <ul id="songListUl">
+                             
+                         </ul>
+                     </div>
+                     <div class="boxBorder fl"></div>
+                     <div class="iryics fl">abc</div>
+                 </div>
+             </div>
+         </div>
+         <div class="poab">
+             <span class="unlocked poab" id="lock"></span>
+         </div>
+     </section>
+     <!-- 自制音乐盒子end  -->
+
+    <!-- 尾部start -->
+    <footer class="footer">
+        <div class="w">
+            <section class="copy fl">
+                <p class="link">
+                    <a href="javascript:;"> 服务条款 </a>
+                    <span class="border">|</span>
+                    <a href="javascript:;"> 隐私政策 </a>
+                    <span class="border">|</span>
+                    <a href="javascript:;"> 儿童隐私政策 </a>
+                    <span class="border">|</span>
+                    <a href="javascript:;"> 版权投诉指引 </a>
+                    <span class="border">|</span>
+                    <a href="javascript:;"> 意见反馈 </a>
+                    <span class="border">|</span>
+                </p>
+                <p>网易公司版权所有©1997-2021杭州乐读科技有限公司运营：<a href="javascript:;" class="hoverUnderline">浙网文[2021] 1186-054号</a></p>
+                <p>违法和不良信息举报电话：0571-89853516 举报邮箱：<a href="javascript:;" class="hoverUnderline">ncm5990@163.com</a></p>
+                <p>粤B2-20090191-18  工业和信息化部备案管理系统网站 <a href="javascript:;" class="hoverUnderline"><span></span>浙公网安备 33010902002564号</a></p>
+            </section>
+            <ul class="enter fl">
+                <li>
+                    <a href="">
+                        <div></div>
+                        <p></p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div></div>
+                        <p></p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div></div>
+                        <p></p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div></div>
+                        <p></p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div></div>
+                        <p></p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <!-- 尾部end -->
+
+    <!-- 无用重复div -->
+    <div id="floorLoginBtn" class="hide"></div>
+    
 </body>
 </html>

@@ -37,6 +37,7 @@ window.addEventListener('load', function () {
 
     //登录静态模块start
     let preLoginBtn = $get('#preLoginBtn');
+    let floorLoginBtn = $get('#floorLoginBtn');//floor部分登录按钮
     let loginBox = $get('#loginBox');
     let cancel = $get('#cancel');
     let loginBg = $get('#loginBg');
@@ -45,6 +46,10 @@ window.addEventListener('load', function () {
         loginBg.style.display = 'block';
         loginBox.style.display = 'block';
     })
+    //floor部分点击后登录
+    floorLoginBtn.onclick = function () {
+        preLoginBtn.click();
+    }
     cancel.addEventListener('click', function () {
         loginBg.style.display = 'none';
         loginBox.style.display = 'none';

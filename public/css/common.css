@@ -103,6 +103,94 @@ body {
     color: gray;
 }
 
+.input .searchAdviseBox {
+    top: 63px;
+    width: 240px;
+    height: 240px;
+    background-color: #fff;
+    z-index: 10;
+    border: 1px solid #bebebe;
+    border-radius: 4px;
+    box-shadow: 0 4px 7px #555;
+}
+
+.searchAdviseBox .boxHd {
+    color: #666;
+    padding: 11px 10px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.searchAdviseBox .boxItem .title {
+    width: 60px;
+    height: 100%;
+    padding: 10px 0 0 5px;
+    line-height: 17px;
+    border-right: 1px solid #e2e2e2;
+}
+
+.searchAdviseBox .boxItem li {
+    width: 178px;
+    height: 24px;
+    line-height: 24px;
+    padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.searchAdviseBox .boxItem li:hover {
+    background-color: #E3E5E7;
+}
+
+.songAdviceBox {
+    height: 100px;
+}
+
+.albAdviceBox {
+    height: 50px;
+    color: #333;
+}
+
+.albAdviceBox ul li span:nth-child(1) {
+    color: #0c73c2;
+}
+
+.searchAdviseBox .albAdviceBox .right {
+    border-top: 1px solid #e2e2e2;
+    border-bottom: 1px solid #e2e2e2;
+    background-color: #F9F8F8;
+}
+
+.listAdviceBox {
+    height: 50px;
+}
+
+.searchAdviseBox .ico {
+    float: left;
+    width: 15px;
+    height: 15px;
+    margin-right: 3px;
+    margin-top: 2px;
+}
+
+.searchAdviseBox .musicIco {
+    background: url(../data/img/icon.png) no-repeat -32px -301px;
+}
+
+.searchAdviseBox .albIco {
+    background: url(../data/img/icon.png) no-repeat -34px -320px;
+}
+
+.searchAdviseBox .listIco {
+    background: url(../data/img/icon.png) no-repeat -50px -320px;
+}
+
+.songAdviceBox .songAdvice .adviceSongName {
+    color: #0c73c2;
+
+}
+
 /* 搜索框end */
 
 /* 创作者start */
@@ -171,6 +259,14 @@ body {
 
 /* 返回顶部end */
 
+/* floor部分start */
+
+/* .main .floor {
+    height: 1000px;
+    background-color: #fff;
+} */
+
+/* floor部分end */
 
 /* 尾部start */
 .footer {
@@ -193,7 +289,6 @@ body {
 
 .footer .copy .link a {
     color: #999;
-    padding: 0 6px;
 }
 
 .footer .copy .link a:hover {
@@ -300,6 +395,7 @@ body {
     margin: 20px 0 0 20px;
     width: 40px;
     height: 40px;
+    z-index: 10;
 }
 
 .logined:hover span[class='poab'] {
@@ -314,7 +410,7 @@ body {
     width: 30px;
     height: 30px;
     border-radius: 15px;
-    background-color: pink;
+    background-color: #fff;
 }
 
 .logined>span {
@@ -583,42 +679,415 @@ body {
     cursor: pointer;
 }
 
-/* 时间信息 */
-.timeInfo {
-    width: 100px;
+.musicBox {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 10px;
+    background: url(../data/img/playbar.png) 0 -3px;
+    transition: .5s;
+}
+
+.musicBox .w {
+    width: 980px;
+}
+
+.musicBox ul li {
+    float: left;
+    height: 50px;
+    padding-top: 6px;
+    color: #fff;
+}
+
+.musicBox ul li>span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 3px;
+    /* span对齐 */
+}
+
+.musicBox ul .controlsLeft {
+    width: 137px;
+}
+
+.musicBox ul li .preSong {
+    margin-top: 5px;
+    width: 26px;
+    height: 25px;
+    background: url(../data/img/playbar.png) no-repeat -1px -131px;
+}
+
+.musicBox ul li .preSong:hover {
+    background: url(../data/img/playbar.png) no-repeat -31px -131px;
+}
+
+.musicBox ul li .nextSong {
+    margin-top: 5px;
+    width: 26px;
+    height: 25px;
+    margin-left: -3px;
+    background: url(../data/img/playbar.png) no-repeat -80px -131px;
+}
+
+.musicBox ul li .nextSong:hover {
+    background: url(../data/img/playbar.png) no-repeat -110px -131px;
+}
+
+.musicBox ul li .playBtn {
+    width: 36px;
+    height: 36px;
+    background: url(../data/img/playbar.png) no-repeat -1px -202px;
+}
+
+.musicBox ul .barHeadBox {
+    padding-top: 10px;
+    border-radius: 3px;
+}
+
+.musicBox ul .barHead {
+    width: 35px;
+    height: 35px;
+    border-radius: 3px;
+    background: url(../data/img/playbar.png) no-repeat 0 -80px;
+    padding: 2px 0px 0px 2px;
+}
+
+.musicBox ul .barHead img {
+    width: 30px;
     height: 30px;
+    border-radius: 3px;
 }
 
-/* 进度条start */
-.myAudio {
-    width: 1000px;
-    margin-left: 100px;
+.musicBox ul .barBox {
+    width: 575px;
+    margin-left: 10px;
+    padding-top: 5px;
 }
 
-.bar {
-    width: 300px;
-    height: 11px;
-    border: solid 1px #ccc;
+.musicBox ul .barBox p .barSongName {
+    margin-right: 5px;
+    color: #e8e8e8;
 }
 
-.progress {
-    width: 0px;
+.musicBox ul .barBox p .barSongArt {
+    color: #9b9b9b;
+}
+
+.musicBox ul .barBox .bar {
+    margin-top: 6px;
+    width: 493px;
     height: 9px;
-    background-color: skyblue;
+    background: url(../data/img/statbar.png) no-repeat 0 0;
 }
 
-.barSpan {
-    right: -9px;
-    width: 9px;
+.musicBox ul .barBox .progress {
+    width: 0;
     height: 9px;
-    background-color: pink;
+    background: url(../data/img/statbar.png) no-repeat 0 -66px;
+
 }
 
-/* 进度条end */
-.musicRight {
-    width: 200px;
+.musicBox ul .barBox .barSpan {
+    top: -7px;
+    left: 0;
+    margin-left: -5px;
+    width: 22px;
+    height: 24px;
+    background: url(../data/img/songBarBtn.png) no-repeat;
+}
+
+.musicBox ul .barBox .timeInfo {
+    top: 23px;
+    right: 0px;
+    width: 75px;
+    height: 13px;
+    text-align: center;
+    color: #797979;
+}
+
+.musicBox ul .barBox .timeInfo .songTimeCurrent {
+    color: #a1a1a1;
+}
+
+.musicBox ul .open {
+    padding-top: 17px;
+    width: 60px;
+    margin-left: 10px;
+}
+
+.musicBox ul .open>span,
+.musicBox ul .controlsRight>span {
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.musicBox ul .open .songCollect {
+    width: 18px;
+    height: 18px;
+    background: url(../data/img/playbar.png) no-repeat -92px -166px;
+}
+
+.musicBox ul .open .songRecommend {
+    width: 18px;
+    height: 18px;
+    background: url(../data/img/playbar.png) no-repeat -118px -166px;
+}
+
+.musicBox ul .controlsRight {
+    padding-top: 17px;
+}
+
+.musicBox ul .controlsRight .controlBorder {
+    width: 5px;
+    height: 18px;
+    background: url(../data/img/playbar.png) no-repeat -149px -252px;
+}
+
+.musicBox ul .controlsRight .volume {
+    width: 19px;
+    height: 18px;
+    background: url(../data/img/playbar.png) no-repeat -5px -251px;
+}
+
+.musicBox ul .controlsRight .volumeControl {
+    width: 32px;
+    height: 113px;
+    top: -109px;
+    left: 9px;
+    background: url(../data/img/playbar.png) no-repeat 0 -503px;
+}
+
+.volumeControl .volumeBar {
+    top: 11px;
+    left: 46%;
+    width: 4px;
+    height: 91px;
+    border-radius: 2px;
+}
+
+.volumeControl .volumeProgress {
+    bottom: 0;
+    width: 4px;
+    height: 85px;
+    background-color: red;
+    border-radius: 2px;
+}
+
+.volumeControl .volumeBar .volumeSpan {
+    display: inline-block;
+    margin-bottom: -10px;
+    bottom: 85px;
+    left: -10px;
+    width: 22px;
+    height: 24px;
+    background: url(../data/img/songBarBtn.png) no-repeat;
+}
+
+
+
+.musicBox ul .controlsRight .loopBtn {
+    width: 19px;
+    height: 18px;
+    background: url(../data/img/playbar.png) no-repeat -6px -347px;
+    /* background: url(../data/img/playbar.png) no-repeat -69px -347px; */
+}
+
+.musicBox ul .controlsRight .playListBtn {
+    cursor: pointer;
+    width: 55px;
+    height: 22px;
+    padding-left: 28px;
+    line-height: 20px;
+    color: #666;
+    background: url(../data/img/playbar.png) no-repeat -45px -71px;
+}
+
+.musicBox>.poab {
+    top: -11px;
+    right: 60px;
+    width: 50px;
+    height: 52px;
+    background: url(../data/img/playbar.png) no-repeat 0 -386px;
+}
+
+.musicBox>.poab>.poab {
+    display: inline-block;
+    top: 6px;
+    left: 20px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.musicBox .poab .locked {
+    background: url(../data/img/playbar.png) no-repeat -103px -383px;
+}
+
+.musicBox>.poab .unlocked {
+    background: url(../data/img/playbar.png) no-repeat -82px -383px;
+}
+
+/* 列表页start */
+.musicBox .w .playListBox {
+    top: -299px;
+    left: 0;
+    width: 982px;
+    height: 301px;
+    background-color: #fff;
+}
+
+.playListBox .boxHd {
+    height: 40px;
+    background: url(../data/img/playlist_bg.png) no-repeat;
+}
+
+.playListBox .boxHd .headLeft {
+    width: 556px;
+    height: 40px;
+    margin-right: 2px;
+}
+
+.playListBox .boxHd .headLeft .headTitle {
+    left: 25px;
+    top: 0;
+    height: 39px;
+    line-height: 39px;
+    font-size: 14px;
+    color: #e2e2e2;
+}
+
+.playListBox .boxHd .headLeft .headCollect {
+    left: 398px;
+    top: 12px;
+    width: 75px;
+    height: 15px;
+    line-height: 15px;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.playListBox .boxHd .headLeft .headCollect .headCollectImg {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    background: url(../data/img/playlist.png) no-repeat -24px 0;
+    vertical-align: middle;
+}
+
+.playListBox .boxHd .headLeft .headborder {
+    top: 13px;
+    left: 480px;
+    height: 15px;
+    border-left: 1px solid #000;
+    border-right: 1px solid #2c2c2c;
+}
+
+.playListBox .boxHd .headLeft .cancelAll {
+    left: 490px;
+    width: 50px;
+    height: 15px;
+    color: #ccc;
+    top: 11px;
+}
+
+.playListBox .boxHd .headLeft .cancelAll .cancelAllImg {
+    display: inline-block;
+    width: 13px;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: middle;
+    background: url(../data/img/playlist.png) no-repeat -51px 0;
+}
+
+.playListBox .boxHd .headRight {
+    width: 424px;
+    height: 40px;
+    text-align: center;
+    line-height: 39px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.playListBox .boxHd .headRight .playListCancel {
+    width: 30px;
     height: 30px;
-    border: solid 1px #ccc;
+    right: 0;
+    top: 13px;
+    background: url(../data/img/playlist.png) no-repeat -205px 0;
+    cursor: pointer;
 }
 
+.playListBox .boxBd {
+    height: 263px;
+    background-color: #161616;
+}
+
+.playListBox .boxBd .boxBdBg {
+    width: 980px;
+    height: 980px;
+    opacity: .2;
+}
+
+.playListBox .boxBd .playList {
+    width: 553px;
+    height: 261px;
+}
+
+.playList ul li {
+    width: 553px;
+    height: 28px;
+    color: #fff;
+    background-color: rgb(71 56 56 / 30%);
+}
+
+.playList ul li:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.playListBox .boxBd .playList ul li:hover .cancellSong {
+    display: block;
+}
+
+.playListBox .boxBd .playList ul li .cancellSong {
+    display: none;
+}
+
+.playList ul li .itemPlay {
+    margin-left: 10px;
+    width: 10px;
+    height: 13px;
+    background: url(../data/img/playlist.png) no-repeat -182px 0;
+}
+
+.playList ul li .itemArtName {
+    top: 8px;
+    left: 400px;
+    height: 13px;
+    text-align: center;
+    line-height: 13px;
+}
+
+.playList ul li .cancellSong {
+    top: 8px;
+    left: 370px;
+    display: inline-block;
+    width: 13px;
+    height: 16px;
+    vertical-align: middle;
+    background: url(../data/img/playlist.png) no-repeat -51px 0;
+}
+
+.playListBox .boxBd .boxBorder {
+    width: 6px;
+    height: 260px;
+    background: #000;
+}
+
+.playListBox .boxBd .iryics {
+    width: 420px;
+    height: 261px;
+}
+
+/* 列表页end */
 /* 音乐播放器end */

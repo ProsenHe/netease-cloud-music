@@ -1,151 +1,132 @@
 window.addEventListener('load', function () {
-    let uid=1367105362;
-    //获取听歌排行start
-    let history=$get('#history');//btn
-    let songList=$get('#songList');
-    history.addEventListener('click',function(){
-        ajax({
-            url:'/user/record',
-            data:{
-                uid:1367105362,
-                type:1
-            },
-            success:function(data){
-                for(let i=0;i<data.weekData.length;i++){
-                    let li=$create('li');
-                    li.value=data.weekData[i].song.id;
-                    let num=$create('span');
-                    num.innerHTML=i+1+'.';
-                    num.className='num';
-                    let songName=$create('span');
-                    songName.innerHTML=data.weekData[i].song.name;
-                    songName.className='songName';
-                    let songArt=$create('span');
-                    songArt.innerHTML='-'+data.weekData[i].song.ar[0].name;
-                    songArt.className='songArt';
-                    li.appendChild(num);
-                    li.appendChild(songName);
-                    li.appendChild(songArt)
-                    songList.appendChild(li);
-                }
-            }
-        })
+
+    //1.获取传过来的uid
+    //a.获取听歌排行榜;b.获取用户信息(不需登录,不需要按钮，可同时进行)
+    //c.先登录然后获取歌单数量然后获取歌单信息（login.js函数的调用，promise链式调用）//歌单数量来区分创建歌单与收藏歌单
+
+    //1.获取网页传来的uid参数
+    let uid = uidCheck(location.href);
+    // 未登录
+    if (uid == undefined) {
+        location.href = 'http://localhost:3000/myindex.html';
+    }    
+    //a.获取听歌排行并显示
+    //歌单ul
+    let songList = $get('#songList');
+    getBillList(uid).then(function (data) {
+        for(let i=0;i<data.weekData.length;i++){
+            let li=$create('li');
+            li.value=data.weekData[i].song.id;
+            let num = $create('span');
+            num.innerHTML=i+1+'.';
+            num.className = 'num';
+            let playIco = $create('span');
+            playIco.className = 'playIco';
+            let billSongName=$create('span');
+            billSongName.innerHTML=data.weekData[i].song.name;
+            billSongName.className='billSongName';
+            let billArtName=$create('span');
+            billArtName.innerHTML='-'+data.weekData[i].song.ar[0].name;
+            billArtName.className='billArtName';
+            li.appendChild(num);
+            li.appendChild(playIco);
+            li.appendChild(billSongName);
+            li.appendChild(billArtName)
+            songList.appendChild(li);
+        }
     })
+    
     //获取听歌排行end
 
-    //获取用户信息start(不需要登录，直接传递uid)
-    let checkinfo=$get('#checkinfo');
+    //b.获取用户信息start(不需要登录，直接传递uid)
+    //获取元素
     let userImg=$get('#userImg');
     let username=$get('#username');
     let level=$get('#level');
     let gender=$get('#gender');
     let province=$get('#province');
-    let signature=$get('#signature');
-    let listenSongs=$get('#listenSongs');
-    let follows=$get('#follows');
-    let followed=$get('#followed');
-    let event=$get('#event');
-    checkinfo.addEventListener('click',function(){
-        if(uid==0){
-            return alert('请先登录');
+    let signature=$get('#signature');//个性签名
+    let songNum = $getAll('.songNum');//听过的歌曲数量（类名，多次可用）
+    let follows=$get('#follows');//关注
+    let followed=$get('#followed');//粉丝
+    let event = $get('#event');//动态
+    // 获取用户信息并显示
+    getUserInfo(uid).then(function (data) {
+        //用户图片
+        userImg.src = data.profile.avatarUrl;
+        //用户昵称
+        username.innerHTML = data.profile.nickname;
+        //用户级别
+        level.innerHTML=data.level;
+        //性别：0未知，1为男，2为女
+        if (data.profile.gender == 1) {
+            gender.className = 'gender men';
+        } else if (data.profile.gender == 2) {
+            gender.className = 'gender women';
         }
-        ajax({
-            url:'/user/detail',
-            data:{
-                uid:uid
-            },
-            success:function(data){
-                userImg.src=data.profile.avatarUrl;//显示图片
-                username.innerHTML='名称:'+data.profile.nickname;
-                level.innerHTML='等级：'+data.level;
-                gender.innerHTML='性别：'+data.profile.gender;//0未知，1为男，2为女
-                province.innerHTML='城市区域代码：'+data.profile.city;
-                signature.innerHTML='个人介绍:'+data.profile.signature;
-                listenSongs.innerHTML='听的歌曲：'+data.listenSongs;
-                ajax({
-                    url:'/user/follows',
-                    data:{
-                        uid:uid
-                    },
-                    success:function(data){
-                        follows.innerHTML='关注：'+data.follow.length;
-                    }
-                });
-                ajax({
-                    url:'/user/followeds',
-                    data:{
-                        uid:uid
-                    },
-                    success:function(data){
-                        followed.innerHTML='粉丝：'+data.followeds.length;
-                    }
-                });
-                ajax({
-                    url:'/user/event',
-                    data:{
-                        uid:uid
-                    },
-                    success:function(data){
-                        event.innerHTML='动态：'+data.events.length;
-                    }
-                })
-            }
-        })
+        //城市编号
+        province.innerHTML = '城市区域代码：' + data.profile.city;
+        //个性签名
+        signature.innerHTML = data.profile.signature;
+        //听过的歌曲的数量(类名)
+        for (let i = 0; i < songNum.length; i++){
+            songNum[i].innerHTML = data.listenSongs;
+        }
     })
-    //获取用户信息详情end
 
-    //获取用户歌单信息start
-    let list=$get('#list');
-    let subPlaylist=$get('#subPlaylist');
-    let createdPlaylist=$get('#createdPlaylist');
-    let created=0;//创建歌单的个数
-    let checksong=$get('#checksong');
-    checksong.addEventListener('click',function(){
-        if(uid==0){
-            return alert('请先登录');
-        }
-        ajax({//获取用户歌单收藏与创建数量
-            url:'/user/subcount',
-            success:function(data){
-                created=data.createdPlaylistCount;
-                createdPlaylist.children[0].innerHTML='我创建的歌单：'+created;
-                subPlaylist.children[0].innerHTML='我收藏的歌单：'+data.subPlaylistCount;
-                console.log(data);
-                ajax({//获取用户歌单具体信息
-                    url:'/user/playlist',
-                    data:{
-                        uid:uid
-                    },
-                    success:function(data){
-                        console.log(data);
-                        for(let i=0;i<created;i++){
-                            let li=$create('li');
-                            li.className='songsli';
-                            let p=$create('p');
-                            p.innerHTML=data.playlist[i].name;
-                            let img=$create('img');
-                            img.className='songsImg';
-                            img.src=data.playlist[i].coverImgUrl;
-                            li.appendChild(img);
-                            li.appendChild(p);
-                            createdPlaylist.appendChild(li);
-                        }
-                        for(let i=created;i<data.playlist.length;i++){
-                            let li=$create('li');
-                            li.className='songsli';
-                            let p=$create('p');
-                            p.innerHTML=data.playlist[i].name;
-                            let img=$create('img');
-                            img.className='songsImg';
-                            img.src=data.playlist[i].coverImgUrl;
-                            li.appendChild(img);
-                            li.appendChild(p);
-                            subPlaylist.appendChild(li);
-                        }
-                    }
-                })
-            }
-        })
+    //获取关注数量并显示
+    getFollowsNum(uid).then(function (data) {
+        follows.innerHTML=data.follow.length;
     })
-    //获取用户歌单end
+   
+    //获取粉丝数量并显示
+    getFollowedsNum(uid).then(function (data) {
+        followed.innerHTML=data.followeds.length;
+    })
+    
+    //获取动态数量并显示
+    getEventsNum(uid).then(function (data) {
+        event.innerHTML=data.events.length;
+    })
+    //获取与显示用户信息详情end
+
+    //c.获取用户歌单信息start
+    // 获取元素
+    let createdPlayListNum = $get('#createdPlayListNum');//显示创建歌单数量的元素
+    let subPlaylistNum = $get('#subPlaylistNum');//显示收藏歌单数量的元素
+    let createdPlaylist = $get('#createdPlaylist');//显示创建歌单的元素
+    let subPlaylist = $get('#subPlaylist');//显示收藏歌单的元素
+
+    getCreatedNum(uid).then(getListInfo).then(function (pInfo) {
+        // 数量显示
+        createdPlayListNum.innerHTML = '(' + pInfo.createdNum + ')';
+        subPlaylistNum.innerHTML = '(' + (pInfo.imgSrc.length-pInfo.createdNum)+ ')';
+        // 创建歌单信息显示
+        for (let i = 0; i < pInfo.createdNum; i++){
+            let li=$create('li');
+            li.className='songsli';
+            let p=$create('p');
+            p.innerHTML=pInfo.playListName[i];
+            let img=$create('img');
+            img.className='songsImg';
+            img.src=pInfo.imgSrc[i];
+            li.appendChild(img);
+            li.appendChild(p);
+            createdPlaylist.appendChild(li);
+        }
+        // 收藏歌单信息显示
+        for (let i = pInfo.createdNum; i < pInfo.imgSrc.length; i++) {
+            let li = $create('li');
+            li.className = 'songsli';
+            let p = $create('p');
+            p.innerHTML = pInfo.playListName[i];
+            let img = $create('img');
+            img.className = 'songsImg';
+            img.src = pInfo.imgSrc[i];
+            li.appendChild(img);
+            li.appendChild(p);
+            subPlaylist.appendChild(li);
+        }
+    })
+    
 })

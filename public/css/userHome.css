@@ -1,0 +1,298 @@
+/* 未登录 */
+.floor .w {
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    border-bottom: 0;
+    padding-bottom: 60px;
+}
+
+.floorUnlogined {
+    height: 700px;
+    padding: 104px 86px;
+}
+
+.floorUnlogined .unloginedImg {
+    width: 807px;
+    height: 277px;
+    background: url(../data/img/mymusic.png) no-repeat;
+}
+
+.floorLoginBtn {
+    top: 306px;
+    left: 568px;
+    width: 170px;
+    height: 48px;
+    color: #fff;
+    background: url(../data/img/mymusic.png) no-repeat 0 -278px;
+}
+
+/* 用户信息start */
+.floorItem {
+    padding: 40px 0 0 40px;
+    width: 940px;
+}
+
+.userInfoBox .userImgBox {
+    width: 188px;
+    height: 188px;
+    padding: 3px;
+    background: #fff;
+    border: 1px solid #d5d5d5;
+}
+
+.userInfoBox .userImgBox img {
+    width: 180px;
+    height: 180px;
+}
+
+.userInfo {
+    margin-left: 40px;
+}
+
+.userInfo .userNameBox {
+    width: 670px;
+    height: 45px;
+    margin-top: 3px;
+    border-bottom: 1px solid #ddd;
+}
+
+.userInfo .userNameBox span {
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.userInfo .userNameBox .username {
+    font-size: 22px;
+    line-height: 30px;
+}
+
+.userNameBox .level {
+    font-size: 14px;
+    font-weight: 700;
+    color: #c20c0c;
+    display: inline-block;
+    margin-top: 9px;
+    width: 46px;
+    height: 19px;
+    padding-left: 30px;
+    border-right: solid 2px #ff6666;
+    border-radius: 10px;
+    background: url(../data/img/icon2.png) no-repeat -135px -190px;
+}
+
+/* men women */
+.userNameBox .gender {
+    display: inline-block;
+    margin-top: 9px;
+    width: 20px;
+    height: 20px;
+    background-color: pink;
+}
+
+.userNameBox .men {
+    background: url(../data/img/icon.png) no-repeat -41px -57px;
+}
+
+.userNameBox .women {
+    background: url(../data/img/icon.png) no-repeat -41px -27px;
+
+}
+
+.userNameBox .edit {
+    width: 107px;
+    height: 31px;
+    color: #333;
+    text-align: center;
+    line-height: 31px;
+    background: url(../data/img/button2.png) no-repeat 0 -141px;
+    border-right: solid 2px #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.userInfo .followsLi {
+    margin-top: 10px;
+    height: 41px;
+}
+
+.userInfo .followsLi>span {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.followsLi>span {
+    width: 66px;
+    height: 40px;
+    border-right: solid 1px #ccc;
+}
+
+.followsLi>span:nth-child(3) {
+    border-right: 0;
+}
+
+.followsLi>span p:nth-child(1) {
+    height: 29px;
+    line-height: 20px;
+    font-size: 24px;
+    color: #666;
+}
+
+.followsLi>span p:nth-child(2) {
+    height: 10px;
+    line-height: 8px;
+    color: #666;
+}
+
+.introduceBox {
+    margin-top: 7px;
+}
+
+.introduceBox>p {
+    height: 28px;
+    line-height: 28px;
+    color: #666;
+}
+
+.netIco {
+    margin-top: -2px;
+    margin-left: 13px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../data/img/logo.png) no-repeat;
+}
+
+
+/* 用户信息end */
+
+/* 听歌排行榜start */
+.songListBox .boxHd {
+    height: 33px;
+    line-height: 33px;
+    border-bottom: 2px solid #c20c0c;
+}
+
+.subPlaylistBox {
+    margin-top: -31px;
+}
+
+.songListBox .boxHd .title {
+    font-size: 20px;
+    color: #666;
+    margin-right: 6px;
+}
+
+.songListBox .boxHd .billNum {
+    font-size: 20px;
+    color: #000;
+}
+
+.songListBox .boxHd .fl {
+    font-weight: 400;
+    height: 23px;
+    color: #666;
+}
+
+.songListBox .boxHd .fr .current {
+    color: #666;
+}
+
+.songListBox .songList {
+    border: solid 1px #ccc;
+    border-top: 0;
+}
+
+.songList li {
+    height: 38px;
+    line-height: 38px;
+    padding-left: 10px;
+}
+
+.songList li>span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 7px;
+}
+
+.songList li:nth-child(2n) {
+    background-color: #f7f7f7;
+}
+
+.songList li .num {
+    width: 37px;
+    height: 37px;
+    line-height: 37px;
+    font-size: 15px;
+    color: #666;
+    text-align: right;
+    padding-right: 6px;
+}
+
+.songList li .playIco {
+    width: 17px;
+    height: 17px;
+    background: url(../data/img/table.png) no-repeat 0 -128px;
+}
+
+.songList li .billSongName {
+    color: #000;
+    font-size: 15px;
+}
+
+.songList li .billArtName {
+    color: #ccc;
+    font-size: 12px;
+}
+
+/* 听歌排行榜end */
+
+/* 歌单内部样式start */
+
+.createdPlaylist,
+.subPlaylist {
+    width: 100%;
+    height: 200px;
+}
+
+.createdPlaylistBox .boxBd,
+.subPlaylistBox .boxBd {
+    margin-top: 20px;
+}
+
+.songsli {
+    float: left;
+    width: 140px;
+    height: 160px;
+    margin-right: 50px;
+    margin-bottom: 30px;
+}
+
+.songsli::after {
+    transform: translateY(-164px);
+    display: block;
+    content: '';
+    width: 140px;
+    height: 140px;
+    background: url(../data/img/coverall.png) no-repeat;
+}
+
+
+.songsli:nth-child(5n) {
+    margin: 0;
+}
+
+.songsli p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.songsImg {
+    height: 140px;
+    width: 140px;
+}
+
+/* 歌单内部样式end */

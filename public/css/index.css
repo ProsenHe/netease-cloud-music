@@ -1,22 +1,94 @@
 /* 首页样式 */
 /* 轮播图模块start */
 .main {
-    height: 285px;
+    height: 283px;
     background: url(../data/img/main.jpg) center;
     background-size: 6000px;
 }
 
+.main .w {
+    height: 283px;
+}
+
 .main .focus {
     width: 730px;
+    height: 283px;
+    overflow: hidden;
 }
 
 .main .focus img {
     width: 730px;
 }
 
+.focus ul {
+    width: 1100%;
+}
+
+.focus ul li {
+    float: left;
+}
+
+.arrow_left,
+.arrow_right {
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    width: 40px;
+    height: 40px;
+    font-size: 50px;
+    line-height: 40px;
+    color: #fff;
+    font-family: 'icomoon';
+    cursor: pointer;
+}
+
+.arrow_left {
+    left: -45px;
+}
+
+.arrow_left a {
+    color: #fff;
+}
+
+.arrow_right {
+    right: -45px;
+}
+
+.arrow_right a {
+    color: #fff;
+}
+
+.focus .promo_nav {
+    height: 10px;
+    position: absolute;
+    left: 36%;
+    bottom: 10px;
+}
+
+.promo_nav li {
+    float: left;
+    width: 7px;
+    height: 7px;
+    margin: 0 9px 0;
+    border-radius: 7px;
+    background-color: #606060;
+    cursor: pointer;
+}
+
+.promo_nav li:hover {
+    background-color: #C20C0C;
+}
+
+.promo_nav .current {
+    background-color: #C20C0C;
+}
+
+/* 轮播图模块end */
+
+/* 下载客户端 */
 .main .download {
     width: 254px;
-    height: 284px;
+    height: 283px;
     overflow: hidden;
 }
 
@@ -24,10 +96,513 @@
     width: 254px;
 }
 
-/* 轮播图模块end */
-/* floor模块tart */
-.floor {
-    height: 1000px;
+/* floor模块start */
+.floor_left {
+    width: 730px;
+    background-color: #fff;
+    padding: 20px 20px 40px;
+    border: solid 1px #ccc;
+    border-right: 0;
+    border-bottom: 0;
 }
 
+
+/* floor公用class */
+.floorItem {
+    margin-bottom: 25px;
+}
+
+.floorItem:last-child {
+    margin-bottom: 0;
+}
+
+.box_hd {
+    margin: 0px 0 15px;
+    padding: 0 10px 0 34px;
+    height: 33px;
+    line-height: 28px;
+    border-bottom: 2px solid #C10D0C;
+    background: url(../data/img/index.png) no-repeat -226px -156px;
+}
+
+.box_hd>a {
+    font-size: 20px;
+    color: #000;
+}
+
+.box_hd .recommendClass {
+    padding-left: 20px;
+}
+
+.box_hd .recommendClass a {
+    color: #666;
+}
+
+.box_hd .recommendClass a:hover {
+    text-decoration: underline;
+}
+
+.box_hd .floorLiMore {
+    display: inline-block;
+    width: 40px;
+    font-size: 12px;
+    color: #666;
+
+}
+
+.box_hd .floorLiMore .floorLiMoreImg {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: url(../data/img/index.png) no-repeat 0 -239px;
+}
+
+/* 滚动floor */
+.rollBoxFa {
+    width: 690px;
+    height: 180px;
+    background-color: #F5F5F5;
+}
+
+/* 显示区域 */
+.floorItem .box_bd .rollBox {
+    width: 661px;
+    height: 150px;
+    top: 16px;
+    left: 16px;
+    overflow: hidden;
+}
+
+.floorItem .box_bd .rollBox .roll {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 350%;
+    height: 150px;
+}
+
+.floorItem .box_bd .rollBox .roll li {
+    margin: 0;
+}
+
+.floorItem .box_bd .rollBox .roll .rollItem {
+    float: left;
+    width: 662px;
+    height: 150px;
+}
+
+.floorItem .box_bd .rollBox ul li .rollContent {
+    /* display: none; */
+    height: 150px;
+}
+
+.floorItem .box_bd .rollBox ul li .rollContent .rollCotentItem {
+    display: inline-block;
+    width: 118px;
+    height: 150px;
+    margin-right: 14px;
+}
+
+.floorItem .box_bd .rollBox ul li .rollContent .rollCotentItem:nth-child(5n) {
+    margin-right: 0;
+}
+
+.rollBox ul li .rollContent .rollCotentItem img {
+    width: 118px;
+    height: 110px;
+    float: left;
+}
+
+.rollBox ul li .rollContent .rollCotentItem .contentItemText {
+    float: left;
+}
+
+.rollBox ul li .rollContent .rollCotentItem .contentItemText p:nth-child(1) {
+    margin-top: 4px;
+}
+
+.rollBox ul li .rollContent .rollCotentItem .contentItemText p:nth-child(2) {
+    color: #666;
+}
+
+.rollArrowRight,
+.rollArrowLeft {
+    top: 38%;
+    margin-top: -20px;
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
+    line-height: 40px;
+    color: #000;
+    font-family: 'icomoon';
+    cursor: pointer;
+}
+
+.rollArrowLeft {
+    left: 0;
+}
+
+.rollArrowRight {
+    right: -20px;
+}
+
+/* floor左边部分start */
+
+/* floor左边部分common部分start */
+
+/* li的样式start */
+.floor_left .box_bd li {
+    float: left;
+    width: 140px;
+    height: 204px;
+    margin-right: 42px;
+    margin-bottom: 30px;
+}
+
+.floor_left .box_bd li:nth-child(4n) {
+    margin-right: 0;
+}
+
+.floor_left .box_bd>li::after {
+    transform: translateY(-203px);
+    display: block;
+    content: '';
+    width: 140px;
+    height: 141px;
+    background: url(../data/img/coverall.png) no-repeat;
+}
+
+/* 歌曲代表 */
+.floor_left .box_bd .songType .liFloor {
+    display: inline-block;
+    bottom: 64px;
+    left: 0;
+    width: 140px;
+    height: 27px;
+    background: url(../data/img/coverall.png) no-repeat 0 -537px;
+}
+
+.floor_left .box_bd .songType .liFloor div {
+    margin-top: 6px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.floor_left .box_bd .songType .liFloor .musicIco {
+    width: 14px;
+    height: 11px;
+    background-color: pink;
+    margin: 10px 8px 0 10px;
+    background: url(../data/img/iconall.png) no-repeat 0 -24px;
+}
+
+.floor_left .box_bd .songType .liFloor .text {
+    color: #ccc;
+}
+
+.floor_left .box_bd .songType .liFloor .playIco {
+    width: 16px;
+    height: 17px;
+    background-color: pink;
+    margin-right: 10px;
+    background: url(../data/img/iconall.png) no-repeat;
+
+}
+
+/* 每行第三个右边距调为0 */
+.floor_left .box_bd li:nth-child(4n) {
+    margin-right: 0;
+}
+
+/* li样式end */
+
+/* li的大图片样式start */
+.floor_left .box_bd li>a {
+    display: block;
+    width: 140px;
+    height: 140px;
+}
+
+.floor_left .box_bd li .li_img {
+    width: 140px;
+    height: 140px;
+}
+
+/* li的文字部分start */
+
+/* litext大盒子文本*/
+.floor_left .box_bd li .liText {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.floor_left .box_bd li .liText a {
+    color: #000;
+}
+
+.floor_left .box_bd li .liText a:hover {
+    text-decoration: underline;
+}
+
+/* li的文字部分end */
+/* 榜单表格start */
+.bill {
+    width: 690px;
+    height: 472px;
+    background: url(../data/img/index_bill.png) no-repeat;
+}
+
+.bill dt {
+    width: 230px;
+    height: 120px;
+    padding: 20px 0 0 19px;
+}
+
+.bill dd {
+    height: 32px;
+    padding-left: 20px;
+}
+
+.billImg {
+    margin-left: 1px;
+    width: 80px;
+    height: 80px;
+}
+
+.billImg img {
+    width: 80px;
+    height: 80px;
+}
+
+.billText {
+    margin: 6px 0 0 10px;
+    width: 116px;
+    height: 20px;
+}
+
+.billText a {
+    font-size: 14px;
+    color: #333;
+    font-weight: 700;
+}
+
+.bill .billBtn {
+    margin-top: 7px;
+    margin-left: 10px;
+}
+
+.bill .billBtn .billPlay {
+    display: inline-block;
+    margin-right: 5px;
+    width: 22px;
+    height: 22px;
+    background: url(../data/img/index.png) no-repeat -267px -205px;
+}
+
+.bill .billBtn .billCollect {
+    display: inline-block;
+    margin-right: 5px;
+    width: 22px;
+    height: 22px;
+    background: url(../data/img/index.png) no-repeat -300px -205px;
+}
+
+.bill dd .billNum {
+    display: inline-block;
+    color: #c10d0c;
+    width: 35px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    font-size: 14px;
+    vertical-align: middle;
+    margin-top: -4px;
+}
+
+.bill dd .billSongName {
+    width: 170px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.bill dd .billMore {
+    padding-top: 10px;
+    padding-right: 25px;
+}
+
+/* 榜单表格end */
+/* floor右边部分start */
+
+.floor_right {
+    width: 250px;
+    background-color: #fff;
+}
+
+.floorUnLogin,
+.floorLogin {
+    border: solid 1px #ccc;
+    width: 250px;
+    height: 126px;
+    background: url(../data/img/index.png) 0 0;
+}
+
+.floorUnLogin .floorUnLoginText {
+    padding: 16px 0;
+    margin: 0 25px;
+    line-height: 22px;
+    color: #666;
+}
+
+.floorUnLogin .floorLoginBtn {
+    margin: 0 75px;
+    width: 100px;
+    height: 31px;
+    color: #fff;
+    background: url(../data/img/index.png) no-repeat 0 -195px;
+}
+
+.floorLogin {
+    height: 185px;
+    background-position: 0 -271px;
+}
+
+.floorLogin .floorBdTop {
+    margin-top: 15px;
+    height: 88px;
+}
+
+.floorLogin .floorBdTop .userImgBox {
+    width: 88px;
+    height: 88px;
+    margin: 0 10px;
+}
+
+.floorLogin .floorBdTop .userImgBox img {
+    width: 80px;
+    height: 80px;
+}
+
+.floorLogin .floorBdTop .recommend .username {
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.floorLogin .floorBdTop .recommend .level {
+    font-size: 12px;
+    font-weight: 700;
+    color: #999;
+    margin-top: 3px;
+    width: 46px;
+    height: 17px;
+    padding-left: 30px;
+    border-right: solid 2px #999;
+    border-radius: 10px;
+    background: url(../data/img/icon2.png) no-repeat -130px -84px;
+}
+
+.floorLogin .floorBdTop .recommend .sign {
+    text-align: center;
+    line-height: 31px;
+    color: #fff;
+    margin-top: 5px;
+    width: 100px;
+    height: 31px;
+    border-radius: 3px;
+    background: url(../data/img/button2.png) no-repeat -80px -551px;
+}
+
+.floorLogin .floorBdBtm {
+    height: 80px;
+    padding: 20px 0 0 20px;
+}
+
+.floorLogin .floorBdBtm>.fl {
+    margin-right: 18px;
+    width: 45px;
+    height: 50px;
+    border-right: 1px solid #e4e4e4;
+}
+
+.floorLogin .floorBdBtm>.fl p:nth-child(1) {
+    font-size: 20px;
+    color: #666;
+}
+
+.floorLogin .floorBdBtm>.fl p:nth-child(2) {
+    color: #666;
+}
+
+.floor_right .artists {
+    padding: 15px 20px;
+    width: 250px;
+    height: 1626px;
+    border: solid 1px #ccc;
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.floor_right .artists .artists_box_hd {
+    height: 24px;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+    font-weight: 700;
+}
+
+.artists_box_bd ul li {
+    margin-top: 14px;
+    width: 210px;
+    height: 62px;
+}
+
+.artists_box_bd ul li .artistsText {
+    width: 148px;
+    height: 63px;
+    padding-left: 14px;
+    border: 1px solid #e9e9e9;
+    background-color: #fafafa;
+}
+
+.artists_box_bd ul li .artistsText p {
+    height: 30px;
+    line-height: 30px;
+}
+
+.artists_box_bd ul li .artistsText p:nth-child(1) {
+    padding-top: 2px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.artists_box_bd ul li .artistsText p:nth-child(2) {
+    color: #666;
+}
+
+.artists_box_bd ul li .artistApply {
+    width: 210px;
+    height: 32px;
+    background: url(../data/img/button2.png) no-repeat 0 -223px;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+    line-height: 30px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.anchor .artists_box_bd ul li {
+    height: 35px;
+}
+
+.artists_box_bd ul li .anchorText {
+    padding-left: 5px;
+}
+
+.artists_box_bd ul li .anchorText p:nth-child(1) {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.artists_box_bd ul li .anchorText p:nth-child(2) {
+    color: #666;
+}
+
+/* floor右边部分end */
 /* floor模块end */

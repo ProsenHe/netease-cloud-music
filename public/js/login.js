@@ -1,74 +1,85 @@
+// 公共部分响应
 window.addEventListener('load', function () {
+    //header部分
+    // 获取元素
+    // 登录部分
     let loginBox = $get('#loginBox');//登录信息填写框
     let loginBg = $get('#loginBg');//填写时背景
-    let phoneInp=$get('#phoneInp');
-    let passwordInp = $get('#passwordInp');
-    let message = $get('#message');//提示信息
+    let phoneInp=$get('#phoneInp');//填写表单部分手机号输入框
+    let passwordInp = $get('#passwordInp');//填写表单部分密码输入框
+    let message = $get('#message');//填写表单部分提示信息
     let loginBtn = $get('#loginBtn');//填写表单部分登录按钮
     let preLoginBtnBox = $get('#preLoginBtnBox');//header部分登录按钮
-    let logined = $get('#logined');//登录成功时大盒子
-    let loginedImg = $get('#loginedImg');//登录成功时图片
-    let loginstantus = false;//登录状态
-    let uid = 0;//用户id
-    
-    loginBtn.onclick=function(){
-        let phone=phoneInp.value;
-        let password=passwordInp.value;
-        ajax({
-            type: 'post',
-            url: '/login/cellphone',
-            data: {
-                phone: phone,
-                password: password,
-            },
-            success: function (result) {
-                if (!result.account) {
-                    loginstantus = false;
-                    message.style.display = 'block';
-                    message.children[0].className = 'message wrong';
-                    message.children[0].innerHTML = '密码错误或用户名不存在';
-                    return;
-                }
-                loginstantus = true;
-                uid = result.account.id;
-                console.log('logined');
-                loginSuccess(result);// 登录成功后index部分
-            }
-        })
-    };
-
-    // 登录成功后index部分
-    function loginSuccess(result) {
-        if (loginSuccess) {
-            loginBox.style.display = 'none';
-            loginBg.style.display = 'none';
-            preLoginBtnBox.style.display = 'none';
-            logined.style.display = 'inline-block';
-            loginedImg.src = result.profile.avatarUrl;//改变图片
-        }
-    }
-    
+    let logined = $get('#logined');//header部分登录成功时下拉框
+    let loginedImg = $get('#loginedImg');//header部分登录成功时图片
     //退出登录
     let loginOutBtn = $get('#loginOutBtn');
-    loginOutBtn.addEventListener('click', function (uid) {
+
+    // 先判断有无参数：若有则显示登录，无则退出显示；调用api；即登录操作只是修改了uid参数
+
+    // 登录状态判断
+    let uid = uidCheck();
+    let indexBtn = $get('#indexBtn');
+    let myMusicBtn = $get('#myMusicBtn');
+    let userHomeBtn = $get('#userHomeBtn');
+    if (uid == undefined) {//未登录
+        preLoginBtnBox.style.display = 'block';
+        logined.style.display = 'none';
+        // 跳转到index
+        indexBtn.addEventListener('click', function () {
+            location.href = 'http://localhost:3000/myindex.html';
+        })
+        // 跳转到myMusic
+        myMusicBtn.addEventListener('click', function () {
+            location.href = 'http://localhost:3000/myMusic.html';
+        })
+        // 跳转到userHome
+        userHomeBtn.addEventListener('click', function () {
+            location.href = 'http://localhost:3000/userHome.html';
+        })
+    } else {//已登录
+        loginBox.style.display = 'none';
+        loginBg.style.display = 'none';
+        preLoginBtnBox.style.display = 'none';
+        logined.style.display = 'inline-block';
+        // 改换header部分头像
+        getUserImgSrc(uid).then(function (src) {
+            loginedImg.src = src;
+        })
+        // 跳转到index
+        indexBtn.addEventListener('click', function () {
+            location.href = 'http://localhost:3000/myindex.html?uid='+uid;
+        })
+        // 跳转到myMusic
+        myMusicBtn.addEventListener('click', function () {
+            location.href = 'http://localhost:3000/myMusic.html?uid='+uid;
+        })
+        // 跳转到userHome
+        userHomeBtn.addEventListener('click', function () {
+            location.href = 'http://localhost:3000/userHome.html?uid='+uid;
+        })
+    }
+    
+    // 相关事件
+    // 登录修改url
+    loginBtn.onclick = function (uid) {
+        let phone=phoneInp.value;
+        let password=passwordInp.value;
+        getUid(phone, password,uid).then(function (uid) {
+            uidChange(uid);
+        })
+    };
+    // 退出登录修改url
+    loginOutBtn.addEventListener('click', function () {
         ajax({
             url:'/logout',
-            success:function(result){
+            success:function(){
                 console.log('loginOut');
-                preLoginBtnBox.style.display = 'block';
-                logined.style.display = 'none';
-                return uid = 0;//退出登陆后清除用户id
+                let href = location.href;
+                let hrefChange = href.split('?')[0];
+                location.href = hrefChange;
             }
         })
     })
-
-
-
-
-
-
-
-
-
-
+    
 })  
