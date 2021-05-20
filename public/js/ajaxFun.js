@@ -1,61 +1,54 @@
 //Ajax交互
 function ajax(options) {
-    //默认值
+    //设置默认值
     let defaults={
         type:'get',
         url: '',
-        header:{
-            'Content-Type':'application/x-www-form-urlencoded',
-        },
         data: {},
         success: function(){},
         error:function(){}
     };
     //将输入的options覆盖defaults
     Object.assign(defaults,options);
-    //创建ajax对象
+    //1.创建ajax对象
     let xhr=new XMLHttpRequest();
-    //将请求数据拼接成字符串
+    //将请求数据data中的属性值拼接成字符串
     let params='';
     for(let attr in defaults.data){
         params+=attr+'='+options.data[attr]+'&';
     }
-    params=params.substr(0,params.length-1);
+    params=params.substr(0,params.length-1);// 将最后一个&去掉
     //判断请求类型设置url
-    //设置时间戳(get与post)
+    //设置时间戳添加到url后面
     let timestamp = new Date().getTime();
     if (defaults.type == 'get' && params.length != 0) {//get请求且params不为空时
         defaults.url+='?'+params+'&timestamp=' + timestamp;
     } else {//post请求或params为空
         defaults.url += '?' + 'timestamp=' + timestamp;
     }
-    //ajax初始化
+    //2.ajax初始化（设置请求类型与请求路径）
     xhr.open(defaults.type,defaults.url);
-    //判断请求类型设置send
+    //3.判断请求类型，设置请求头请求体
+    // 若为post请求
     if(defaults.type=='post'){
-        //获取设置的请求头
-        let contentType=defaults.header['Content-Type'];
         //设置请求头
-        xhr.setRequestHeader('Content-Type',contentType);
-        //判断请求头设置send
-        if(contentType=='application/json'){
-            xhr.send(JSON.stringify(defaults.data));
-        }else{
-            xhr.send(params);
-        }
-    }else{//get请求
+        xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        //设置请求体
+        xhr.send(params);
+    // 若为get请求
+    } else {
+        //设置请求体
         xhr.send();
     }
-    //请求结束后
+    //4.ajax绑定onload事件，即请求结束后获取响应头及响应信息
     xhr.onload=function(){
-        //获取响应头及响应数据
         let contentType=xhr.getResponseHeader('Content-Type');
         let response=xhr.response;
-        //判断响应头是否为json字符串，是则转为json对象
+        //判断响应头是否显示响应内容为json格式，是则将响应信息由字符串转为json对象
         if(contentType.includes('application/json')){
-            response=JSON.parse(response);//注意赋值
+            response=JSON.parse(response);
         }
-        //判断请求是否成功调用success函数与error函数
+        //判断响应状态码是否在200-300之间即判断请求是否成功调用对应函数
         if(xhr.status>=200&&xhr.status<300){
             defaults.success(response,xhr);
         }else{
@@ -238,7 +231,6 @@ function getListInfo(pInfo) {
     return p;
 }
 
-
 // 单独使用（只需要uid)
 function getListInfoOnly(uid) {
     let p = new Promise((resolve, reject) => {
@@ -288,20 +280,11 @@ function getLikeList(uid) {
 }
 // 登陆相关函数end
 
-
 // 歌曲信息相关函数start
 
 // 根据搜索获取歌曲信息
-function getSongInfo(keywords) {
-    let songInfo = {
-        songAdvice:[],
-        songId: 0,
-        songName:'',
-        songArt: '',//歌手名字
-        songUrl: '',
-        picUrl: '',
-        songRight:Boolean,
-    };
+function getSongAdvice(keywords) {
+    let songAdvice=[];
     let p = new Promise((resolve, reject) => {
         ajax({
             url: '/cloudsearch',
@@ -316,9 +299,9 @@ function getSongInfo(keywords) {
                     songAdviceItem.adviceSongName = data.result.songs[i].name;
                     songAdviceItem.adviceSongArt = data.result.songs[i].ar[0].name;
                     songAdviceItem.advicePic = data.result.songs[i].al.picUrl;
-                    songInfo.songAdvice.push(songAdviceItem);
+                    songAdvice.push(songAdviceItem);
                 }
-                resolve(songInfo);
+                resolve(songAdvice);
             }
         })
     })

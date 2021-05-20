@@ -1,8 +1,8 @@
 window.addEventListener('load', function () {
-    //1.获取网页传来的uid参数
-    let uid = uidCheck(location.href);
     let floorUnLogin = $get('#floorUnLogin');
     let floorLogin = $get('#floorLogin');
+    //1.获取网页传来的uid参数
+    let uid = uidCheck(location.href);
     //未登录
     if (uid == undefined) {
         floorUnLogin.style.display = 'block';

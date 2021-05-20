@@ -7,7 +7,6 @@ window.addEventListener('load', function () {
     let loginBg = $get('#loginBg');//填写时背景
     let phoneInp=$get('#phoneInp');//填写表单部分手机号输入框
     let passwordInp = $get('#passwordInp');//填写表单部分密码输入框
-    let message = $get('#message');//填写表单部分提示信息
     let loginBtn = $get('#loginBtn');//填写表单部分登录按钮
     let preLoginBtnBox = $get('#preLoginBtnBox');//header部分登录按钮
     let logined = $get('#logined');//header部分登录成功时下拉框

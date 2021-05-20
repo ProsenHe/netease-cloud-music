@@ -86,12 +86,8 @@ function uidCheck() {
 //更改url中uid
 function uidChange(uid) {
     let url = new URL(window.location.href);
-    console.log(url.search);
     if (url.search.length == 0) {
         url.searchParams.append('uid', uid);
-        console.log(url);
         location.href = url.href;
-        // location.href = 'http://localhost:3000/myindex.html?uid='+uid;
     }
-    console.log(url);
 }
