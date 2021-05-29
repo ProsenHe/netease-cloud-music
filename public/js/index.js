@@ -9,6 +9,7 @@ window.addEventListener('load', function () {
         floorLogin.style.display = 'none';
     // 已登录
     } else {
+    //已登录
         floorUnLogin.style.display = 'none';
         floorLogin.style.display = 'block';
         // 获取用户信息并显示
@@ -31,7 +32,6 @@ window.addEventListener('load', function () {
         })
         getFollowedsNum(uid).then(function (data) {
             followed.innerHTML = data.followeds.length;
-            
         })
     }
     //轮播图功能start

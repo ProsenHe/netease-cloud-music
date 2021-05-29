@@ -151,4 +151,11 @@ select {
     display: inline-block;
 }
 
+/* 单行省略 */
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* 样式简写end */

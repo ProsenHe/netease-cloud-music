@@ -15,7 +15,6 @@ window.addEventListener('load', function () {
     let loginOutBtn = $get('#loginOutBtn');
 
     // 先判断有无参数：若有则显示登录，无则退出显示；调用api；即登录操作只是修改了uid参数
-
     // 登录状态判断
     let uid = uidCheck();
     let indexBtn = $get('#indexBtn');

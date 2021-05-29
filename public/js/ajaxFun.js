@@ -5,7 +5,7 @@ function ajax(options) {
         type:'get',
         url: '',
         data: {},
-        success: function(){},
+        success: function () {},
         error:function(){}
     };
     //将输入的options覆盖defaults
@@ -15,7 +15,7 @@ function ajax(options) {
     //将请求数据data中的属性值拼接成字符串
     let params='';
     for(let attr in defaults.data){
-        params+=attr+'='+options.data[attr]+'&';
+        params+=attr+'='+defaults.data[attr]+'&';
     }
     params=params.substr(0,params.length-1);// 将最后一个&去掉
     //判断请求类型设置url
@@ -49,14 +49,70 @@ function ajax(options) {
             response=JSON.parse(response);
         }
         //判断响应状态码是否在200-300之间即判断请求是否成功调用对应函数
-        if(xhr.status>=200&&xhr.status<300){
-            defaults.success(response,xhr);
-        }else{
-            defaults.error(response,xhr);
+        if (xhr.status >= 200 && xhr.status < 300) {
+            defaults.success(response, xhr);
+        } else {
+            defaults.error(response, xhr);
         }
     }
+    
 }
-
+function ajaxNew(options) {
+    let p = new Promise((resolve, reject) => {
+        //设置默认值
+        let defaults={
+            type:'get',
+            url: '',
+            data: {},
+        };
+        //将输入的options覆盖defaults
+        Object.assign(defaults,options);
+        //1.创建ajax对象
+        let xhr=new XMLHttpRequest();
+        //将请求数据data中的属性值拼接成字符串
+        let params='';
+        for(let attr in defaults.data){
+            params+=attr+'='+defaults.data[attr]+'&';
+        }
+        params=params.substr(0,params.length-1);// 将最后一个&去掉
+        //判断请求类型设置url
+        //设置时间戳添加到url后面
+        let timestamp = new Date().getTime();
+        if (defaults.type == 'get' && params.length != 0) {//get请求且params不为空时
+            defaults.url+='?'+params+'&timestamp=' + timestamp;
+        } else {//post请求或params为空
+            defaults.url += '?' + 'timestamp=' + timestamp;
+        }
+        //2.ajax初始化（设置请求类型与请求路径）
+        xhr.open(defaults.type,defaults.url);
+        //3.判断请求类型，设置请求头请求体
+        // 若为post请求
+        if(defaults.type=='post'){
+            //设置请求头
+            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            //设置请求体
+            xhr.send(params);
+        // 若为get请求
+        } else {
+            //设置请求体
+            xhr.send();
+        }
+        //4.ajax绑定onload事件，即请求结束后获取响应头及响应信息
+        xhr.onload=function(){
+            let contentType=xhr.getResponseHeader('Content-Type');
+            let response=xhr.response;
+            //判断响应头是否显示响应内容为json格式，是则将响应信息由字符串转为json对象
+            if(contentType.includes('application/json')){
+                response=JSON.parse(response);
+            }
+            //判断响应状态码是否在200-300之间即判断请求是否成功调用对应函数
+            if (xhr.status >= 200 && xhr.status < 300) {
+                resolve(response, xhr);
+            } 
+        }
+    });
+    return p;
+}
 // 登陆相关函数start
 // 获取uid
 function getUid(phone,password,uid) {
@@ -194,7 +250,8 @@ function getCreatedNum(uid) {
             playListName: [],
             creater: [],
             trackCount: [],
-            playCount:[],
+            playCount: [],
+            id:[],
         }
         ajax({
             url:'/user/subcount',
@@ -216,6 +273,7 @@ function getListInfo(pInfo) {
                 uid:pInfo.uid
             },
             success: function (data) {
+                // console.log(data);
                 //获取歌单名与图片路径
                 for (let i = 0; i < data.playlist.length; i++){
                     pInfo.playListName[i] = data.playlist[i].name;
@@ -223,6 +281,7 @@ function getListInfo(pInfo) {
                     pInfo.creater[i] = data.playlist[i].creator.nickname;
                     pInfo.trackCount[i] = data.playlist[i].trackCount;
                     pInfo.playCount[i] = data.playlist[i].playCount;
+                    pInfo.id[i] = data.playlist[i].id;
                 }
                 resolve(pInfo);
             }
@@ -372,3 +431,21 @@ function getSongUrlOnly(songId) {
     return p;
 }
 // 歌曲信息相关函数end
+
+// 收藏歌曲
+function addLike(songId,userLikelistId) {
+    let p = new Promise((resolve, reject) => {
+        ajax({
+            url: '/playlist/tracks',
+            data: {
+                op: 'add',
+                pid: userLikelistId,
+                tracks:songId
+            },
+            success: function (data) {
+                resolve(data);
+            }
+        })
+    })
+    return p;
+}

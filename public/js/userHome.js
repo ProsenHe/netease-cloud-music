@@ -14,6 +14,7 @@ window.addEventListener('load', function () {
     //歌单ul
     let songList = $get('#songList');
     getBillList(uid).then(function (data) {
+        console.log(data);
         for(let i=0;i<data.weekData.length;i++){
             let li=$create('li');
             li.value=data.weekData[i].song.id;

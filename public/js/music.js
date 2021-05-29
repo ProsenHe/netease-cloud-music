@@ -1,8 +1,5 @@
 window.addEventListener('load', function () {
     // music相关函数
-
-
-
     let audio = $get('#audio');
     let musicBox = $get('#musicBox');//自制音乐盒子
 
@@ -60,7 +57,7 @@ window.addEventListener('load', function () {
             timer = setTimeout(function () {
                 // 1.根据搜索结果获取歌曲建议
                 getSongAdvice(keywords).then(function (songAdvice) {
-                    // 创建li，储存对应歌曲信息，添加到搜索结果的盒子
+                    // 创建li，储存歌曲信息
                     for (let i = 0; i < 4; i++) {
                         let li = $create('li')
                         li.className = 'adviceLi';
@@ -74,11 +71,13 @@ window.addEventListener('load', function () {
                         let adviceSongArt = $create('span');
                         adviceSongArt.className = 'adviceSongArt';
                         adviceSongArt.innerHTML = songAdvice[i].adviceSongArt;
+                        let itemCancel = $create('span');
+                        itemCancel.className = 'itemCancel poab';
                         li.appendChild(adviceSongName);
                         li.appendChild(adviceSongArt);
                         songAdviceUl.appendChild(li);
                     }
-                    // 点击li时，将li的信息给playInfo对象
+                    // 点击li时，播放当前歌曲
                     let lis = $getAll('.adviceLi');
                     for (let i = 0; i < lis.length; i++){
                         lis[i].addEventListener('click', function () {
@@ -112,6 +111,7 @@ window.addEventListener('load', function () {
                             })
                         })
                     }
+                    
                 })
                 // 2.获取歌单建议
                 searchGetListInfo(keywords).then(function (data) {
@@ -146,103 +146,133 @@ window.addEventListener('load', function () {
             searchAdviseBox.style.display = 'none';
         }
     })
+    // 搜索end
 
-    // 获取选取的歌曲信息后相关网页操作start（搜索的回调函数）
+    // 获取选取的歌曲信息后相关网页操作start
+
+    let LengthHistory = [];//播放歌单长度的历史
+    let songCurrent = 0;//当前播放的歌曲的索引号
+    let ifLock = false;// 播放歌曲同look联动
+    let songDuration = $getAll('.songDuration');//与音乐盒子中歌曲时长联动
 
     // 播放当前歌曲的函数(保证不与上一首播放重复换audio.src)
     function audioPlay(songCurrent) {
-        playHistory.push(songCurrent);
-        // 第二首歌起，
-        if (playHistory.length !=1) {
-            if (playHistory[playHistory.length - 1] != playHistory[playHistory.length - 2]) {
-                audio.src = songList[songCurrent].songUrl;//不重复时输入播放地址
+        if (songList.length > 0) {
+            // 当前歌曲的url不同才添加
+            if (songList[songCurrent].songUrl != audio.src) {
+                audio.src = songList[songCurrent].songUrl;//不重复输入播放地址
+                musicBox.className = 'musicBox musicBoxBlock';//显示音乐盒子
+                ifLock = false;//相关控件
+                lock.click();
                 play = false;
                 playBtn.click();
-            }
-        } else {
-            audio.src = songList[songCurrent].songUrl;//第一首歌直接输入播放地址
-            musicBox.style.height = '50px';
-            lock.click();
-            play = false;
-            playBtn.click();
+            } 
         }
     }
 
     // 歌曲信息显示函数(对所有songName/songArt类名元素修改)
     function songDisplay(songCurrent) {
-        // 更改图片
-        songPic.src = songList[songCurrent].picUrl;
-        //更改歌名
-        for (let i = 0; i < songName.length; i++){
-            songName[i].innerHTML = songList[songCurrent].songName;
+        if (songList.length >0) {
+            // 更改图片
+            songPic.src = songList[songCurrent].picUrl;
+            //更改歌名
+            for (let i = 0; i < songName.length; i++){
+                songName[i].innerHTML = songList[songCurrent].songName;
+            }
+            //更改歌手名
+            for (let i = 0; i < songArt.length; i++){
+                songArt[i].innerHTML = songList[songCurrent].songArt;
+            }
+            // 更改歌单数量
+            playListBtn.innerHTML = songList.length;
         }
-        //更改歌手名
-        for (let i = 0; i < songArt.length; i++){
-            songArt[i].innerHTML = songList[songCurrent].songArt;
-        }
-        // 更改歌单数量
-        playListBtn.innerHTML = songList.length;
     }
 
-    let playHistory = [];//播放歌曲序号的历史
-    let LengthHistory = [];//播放歌单长度的历史
-    let songCurrent = 0;//当前播放的歌曲的索引号
-
+    // 歌单与音乐盒子信息响应(搜索的回调函数)
+    // 先删除歌单内所有li，再根据songList显示歌单；
     function musicPlay(songList) {
-        //当前歌曲序号
-
-        //默认播放播放
-        songDisplay(songCurrent);//显示song信息
-        audioPlay(songCurrent);
-
-        // 歌单部分响应start：根据songList添加li到songListUl
-        let ifAppend = true;//是否添加li
-        LengthHistory.push(songList.length);//添加songList长度到历史
-        if (LengthHistory.length > 1) {//第二次添加
-            ifAppend = true;
-            if (LengthHistory[LengthHistory.length - 1] == LengthHistory[LengthHistory.length - 2]) {
-                ifAppend = false;
-            }
+        // console.log(songList);
+        // 清空歌单信息
+        while (songListUl.hasChildNodes()) {
+            songListUl.removeChild(songListUl.firstChild);
         }
-        if (ifAppend) {
+        // 清空音乐盒子信息
+        songPic.src = 'http://s4.music.126.net/style/web2/img/default/default_album.jpg';//图片
+        for (let i = 0; i < songName.length; i++){
+            songName[i].innerHTML = '';
+        }//歌曲名
+        for (let i = 0; i < songArt.length; i++){
+            songArt[i].innerHTML = '';
+        }//歌手名
+
+        // 若为清空歌曲,则清空播放路径等
+        if (songList.length == 0) {
+            playListBtn.innerHTML = '';//歌曲数目
+            audio.src = '';//播放路径
+            songDuration[0].innerHTML = '00:00';
+            play = true;
+            playBtn.click();//播放按钮
+            songCurrent = 0;//当前播放索引号
+        }
+
+        // 根据songList修改歌单信息
+        // 创建li，显示内容
+        for (let i = 0; i < songList.length; i++){
             let li = document.createElement('li');
             li.className = 'playListItem pore pointer';
+            li.setAttribute('index', i);//每个li设置Index
             let itemplay = document.createElement('span');//播放图标
             itemplay.className = 'itemPlay';
             let itemSongName = document.createElement('span');//歌曲名
             itemSongName.className = 'itemSongName';
+            itemSongName.innerHTML= songList[i].songName;
             let itemArtName = document.createElement('span');//歌手名
             itemArtName.className = 'itemArtName poab ';
+            itemArtName.innerHTML = songList[i].songArt;
+            let itemCancel = $create('span');
+            itemCancel.className = 'itemCancel poab';
             li.appendChild(itemplay);
             li.appendChild(itemSongName);
             li.appendChild(itemArtName);
-            songListUl.appendChild(li); 
-        }
-        //显示歌单信息内容
-        let itemSongNameList = $getAll('.itemSongName');
-        let itemArtNameList = $getAll('.itemArtName');
-        let playListItem = $getAll('.playListItem');
-        for (let i = 0; i < songList.length; i++){
-            playListItem[i].setAttribute('index', i);//每个li设置Index
-            itemSongNameList[i].innerHTML = songList[i].songName;
-            itemArtNameList[i].innerHTML = songList[i].songArt;
+            li.appendChild(itemCancel);
+            songListUl.appendChild(li);
         }
 
+        //默认播放第一首歌
+        songDisplay(songCurrent);//显示song信息
+        audioPlay(songCurrent);
+
+        //获取li
+        let playListItem = $getAll('.playListItem');
         // 点击li，改变当前播放
         for (let i = 0; i < playListItem.length; i++){
             playListItem[i].addEventListener('click', function () {
-                songCurrent = this.getAttribute('index');
+                songCurrent =parseInt(this.getAttribute('index')) ;
                 songDisplay(songCurrent);
                 audioPlay(songCurrent);
             })
         }
-        
-        // 歌单部分响应end
-
-        // 音乐盒子响应start
+        //点击删除时，删除当前歌曲
+        let itemCancel = $getAll('.itemCancel');
+        for (let i = 0; i < itemCancel.length; i++){
+            itemCancel[i].addEventListener('mouseenter', function () {
+                this.style.backgroundPosition = '-51px -20px';
+            });
+            itemCancel[i].addEventListener('mouseleave', function () {
+                this.style.backgroundPosition = '-51px 0px';
+            })
+            itemCancel[i].addEventListener('click', function (event) {
+                // 获取index，songList删除对应歌曲，musicPlay()响应
+                let index = this.parentNode.getAttribute('index');
+                if (index == songList.length-1) {
+                    songCurrent = 0;
+                }
+                songList.splice(index, 1);
+                musicPlay(songList);
+                event.stopPropagation();
+            })
+        }
     }
-
-    // 搜索end
 
     // 相关控件设置start
 
@@ -280,7 +310,6 @@ window.addEventListener('load', function () {
     let barSpanWidth = barSpan.offsetWidth;
     let barSpanStart = -barSpanWidth / 2;
     let timeInfo = $get('#timeInfo');//显示事件信息
-    let songDuration = $getAll('.songDuration');
     let duration=0;//总时间
     let currentTime=0;//当前时间
     let width=0;//progress长度(占比0-1)
@@ -366,14 +395,18 @@ window.addEventListener('load', function () {
             window.onmouseup = null;
         }
     })
-
     // 歌单显示
     let playListBox = $get('#playListBox');
     let playListBtn = $get('#playListBtn');
     let playListCancel = $get('#playListCancel');
     let ifPlayList = false;
     // 锁，歌单显示，盒子显示都需用到ifClock变量
-    let ifLock = false;
+    playListBtn.addEventListener('mouseenter', function () {
+        this.style.backgroundPosition = '-45px -101px';
+    })
+    playListBtn.addEventListener('mouseleave', function () {
+        this.style.backgroundPosition = '-45px -71px';
+    })
     playListBtn.addEventListener('click', function () {
         if (!ifPlayList) {
             ifPlayList = true;
@@ -409,15 +442,12 @@ window.addEventListener('load', function () {
             }, 1000)
         }
     })
-
     lock.addEventListener('click', function () {
         if (ifLock) {
             ifLock = false;
             lock.className = 'poab unlocked';
-            
         } else {
             ifLock = true;
-            
             lock.className = 'poab locked';
         }
     })
@@ -453,6 +483,8 @@ window.addEventListener('load', function () {
 
     // 歌曲按钮歌曲切换
     preSong.addEventListener('click', function () {
+        console.log(songCurrent);
+        console.log(songList);
         songCurrent--;
         if (songCurrent < 0) {
             songCurrent = songList.length-1;
@@ -478,7 +510,13 @@ window.addEventListener('load', function () {
     // 音乐盒子响应end
     
     //循环播放
-    let loopBtn=$get('#loopBtn');
+    let loopBtn = $get('#loopBtn');
+    loopBtn.addEventListener('mouseenter', function () {
+        this.style.backgroundPosition = '-36px -347px';
+    })
+    loopBtn.addEventListener('mouseleave', function () {
+        this.style.backgroundPosition = '-6px -347px';
+    })
     loopBtn.addEventListener('click', function () {
         if (!loop) {
             loop = true;
@@ -505,6 +543,12 @@ window.addEventListener('load', function () {
     // volume控制器的显示
     ifVolume = false;
     // 默认volume定位
+    volumeBtn.addEventListener('mouseenter', function () {
+        this.style.backgroundPosition = '-34px -251px';
+    })
+    volumeBtn.addEventListener('mouseleave', function () {
+        this.style.backgroundPosition = '-5px -251px';
+    })
     volumeBtn.addEventListener('click', function () {
         if (!ifVolume) {
             ifVolume = true;
@@ -550,7 +594,154 @@ window.addEventListener('load', function () {
             }
         })
     }
+
+    // 收藏歌曲
+    let songCollect = $get('#songCollect');
+    let collectFeedback = $get('#collectFeedback');
+    let collectTimer = null;
+    songCollect.addEventListener('mouseenter', function () {
+        this.style.backgroundPosition = '-92px -192px';
+    })
+    songCollect.addEventListener('mouseleave', function () {
+        this.style.backgroundPosition = '-92px -166px';
+    })
+    songCollect.addEventListener('click', function () {
+        // 1.先查看登录状态
+        ajaxNew({
+            url: '/login/status',
+        }).then(function (response) {
+            // 未登录
+            if (response.data.account==undefined) {
+                let preLoginBtn = $get('#preLoginBtn');
+                preLoginBtn.click();
+            } else {
+            // 已登录
+                // 2.获取用户id
+                uid = response.data.account.id;
+                // 3.获取用户喜欢歌单id
+                ajaxNew({
+                    url: '/user/playlist',
+                    data: {
+                        uid: uid,
+                    }
+                }).then(function (response) {
+                    let playListId = response.playlist[0].id;
+                    // 4.获取当前播放歌曲的id
+                    let songId = songList[songCurrent].songId;
+                    // 5.收藏歌曲
+                    ajaxNew({
+                        url: '/playlist/tracks',
+                        data: {
+                            op: 'add',
+                            pid: playListId,
+                            tracks:songId,
+                        }
+                    }).then(function (response) {
+                        //200成功，502重复
+                        let code = response.body.code;
+                        if (code == 200) {
+                            collectFeedback.style.display = 'block';
+                            collectFeedback.innerHTML = '收藏成功';
+                            collectFeedback.style.color = 'black';
+                        } else {
+                            collectFeedback.style.display = 'block';
+                            collectFeedback.style.color = 'red';
+                            collectFeedback.innerHTML = response.body.message;
+                        }
+                        collectTimer = setTimeout(function () {
+                            collectFeedback.style.display = 'none';
+                        }, 2000);
+                    })
+                })
+            }
+        })
     
-    // 相关控件设置start
+    })
+    // 收藏全部
+    let collectAll = $get('#collectAll');
+    collectAll.addEventListener('mouseenter', function () {
+        this.children[0].style.backgroundPosition = '-24px -20px';
+    })
+    collectAll.addEventListener('mouseleave', function () {
+        this.children[0].style.backgroundPosition = '-24px 0px';
+    })
+    collectAll.addEventListener('click', function () {
+        // 1.先查看登录状态
+        ajaxNew({
+            url: '/login/status',
+        }).then(function (response) {
+            // 未登录
+            if (response.data.account==undefined) {
+                let preLoginBtn = $get('#preLoginBtn');
+                preLoginBtn.click();
+            } else {
+            // 已登录
+                // 2.获取用户id
+                uid = response.data.account.id;
+                // 3.获取用户喜欢歌单id
+                ajaxNew({
+                    url: '/user/playlist',
+                    data: {
+                        uid: uid,
+                    }
+                }).then(function (response) {
+                    let playListId = response.playlist[0].id;
+                    // 4.获取当前播放歌曲的id
+                    songParams = '';
+                    for (let i = 0; i < songList.length; i++){
+                        songParams += songList[i].songId + ',';
+                    }
+                    songParams=songParams.substr(0,songParams.length-1);
+                    // 5.收藏歌曲
+                    ajaxNew({
+                        url: '/playlist/tracks',
+                        data: {
+                            op: 'add',
+                            pid: playListId,
+                            tracks:songParams,
+                        }
+                    }).then(function (response) {
+                        console.log(response);
+                        //200成功，502重复，400无歌曲输入
+                        let code = response.body.code;
+                        // 收藏成功
+                        if (code == 200) {
+                            collectFeedback.style.display = 'block';
+                            collectFeedback.innerHTML = '收藏成功';
+                            collectFeedback.style.color = 'black';
+                        } else if(code==502){
+                        // 收藏失败
+                            collectFeedback.style.display = 'block';
+                            collectFeedback.style.color = 'red';
+                            collectFeedback.innerHTML = response.body.message;
+                        } else {
+                        // 无歌曲输入
+                            collectFeedback.style.display = 'block';
+                            collectFeedback.style.color = 'red';
+                            collectFeedback.innerHTML = '无歌曲收藏';
+                        }
+                        collectTimer = setTimeout(function () {
+                            collectFeedback.style.display = 'none';
+                        }, 2000);
+                    })
+                })
+            }
+        })
+    })
+
+    // 删除歌曲
+    let cancelAll = $get('#cancelAll');
+    // 相关控件设置end
+    cancelAll.addEventListener('mouseenter', function () {
+        this.children[0].style.backgroundPosition='-51px -20px'
+    });
+    cancelAll.addEventListener('mouseleave', function () {
+        this.children[0].style.backgroundPosition='-51px 0px'
+    });
+    cancelAll.addEventListener('click', function () {
+        songList.splice(0,songList.length);
+        musicPlay(songList);
+    });
+    // 获取选取的歌曲信息后相关网页操作start
 
 })

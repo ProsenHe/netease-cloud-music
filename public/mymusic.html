@@ -205,7 +205,8 @@
     <!-- 遮挡层 -->
     <div class="loginBg hide" id="loginBg"></div>
     <!-- 登录填写模块end -->
-
+    <!-- 收藏成功 -->
+    <div class="collectFeedback" id="collectFeedback"></div>
     <!-- 返回顶部start -->
     <div class="returnTop hide" id="returnTop"></div>
     <!-- 返回顶部end -->
@@ -268,19 +269,19 @@
             </div>
             <!-- 用户信息 -->
             <div class="fl myMusicUserInfoBox">
-                <div class="boxHd">
-                    <div id="likeImgBox" class="likeImgBox fl">
-                        <img id="likeImg" class="likeImg">
+                <div class="boxHd clearfix">
+                    <div id="listImgBox" class="listImgBox fl clearfix">
+                        <img id="listImg" class="listImg">
                     </div>
-                    <ul class="fl">
-                        <li class="title">
+                    <ul class="fl clearfix">
+                        <li class="title" >
                             <span class="ico"></span>
-                            我喜欢的音乐
+                            <span id="listTitle" class="listTitle">我喜欢的音乐</span>
                         </li>
                         <li class="info">
                             <img class="infoImg" id="infoImg">
                             <span class="infoUserName" id="infoUserName">1</span>
-                            <span class="createTime" id="createTime">2</span>
+                            <span class="createTime" id="createTime"></span>
                         </li>
                         <li class="button">
                             <span class="infoPlay">播放</span>
@@ -292,19 +293,19 @@
                         </li>
                     </ul>
                 </div>
-                <div class="boxBd">
+                <div class="boxBd clearfix">
                     <!-- 歌曲列表 -->
-                    <div class="songListBox">
+                    <div class="songListBox clearfix">
                         <div class="songListboxHd">
                             <div class="fl">
                                 <span class="title">歌曲列表</span>
-                                <span class="likeSongNum" id="likeSongNum"></span>首歌
+                                <span class="listSongNum" id="listSongNum"></span>首歌
                             </div>
                             <div class="fr">
                                 播放:<span class="playNum" id="playNum"></span>次
                             </div>
                         </div>
-                        <div class="boxBd">
+                        <div class="boxBd clearfix">
                             <div class="songListTitle clearfix">
                                 <div class="fl"></div>
                                 <div class="fl">歌曲标题</div>
@@ -312,7 +313,7 @@
                                 <div class="fl">歌手</div>
                                 <div class="fl">专辑</div>
                             </div>
-                            <ul id="songList" class="songList">
+                            <ul id="songListUlBox" class="songListUl clearfix">
                                 <!-- <li>
                                     <div>
                                         <span class="num">1.</span>
@@ -327,7 +328,7 @@
                         </div>
                     </div>
                     <!-- 评论区 -->
-                    <div class="songListBox">
+                    <div class="songListBox clearfix">
                         <div class="songListboxHd clearfix">
                             <div class="fl">
                                 <span class="title">评论</span>
@@ -339,23 +340,38 @@
                                 <img id="commentBoxImg">
                             </div>
                             <div class="fr pore">
-                                <input type="textarea" placeholder="评论">
+                                <input type="textarea" placeholder="评论" id="commentInp">
                                 <div class="triangle poab"></div>
                                 <div class="button poab clearfix">
                                     <div class="fl">
                                         <span class="face"></span>
                                         <span class="at"></span>
                                     </div>
-                                    <div class="fr ">
-                                        <span class="rest">140</span>
-                                        <span class="subBtn">评论</span>
+                                    <div class="fr">
+                                        <span class="rest" id="rest">140</span>
+                                        <span class="subBtn pointer" id="subBtn">评论</span>
                                     </div>
                                     
                                 </div>
                             </div>
-                            
                         </div>
-                        
+                        <div class="commentHistory clearfix">
+                            <div class="commentHd">最新评论</div>
+                            <ul class="commentUl clearfix" id="commentUl">
+                                <!-- <li>
+                                    <img class='fl commentImg'  src="https://p2.music.126.net/ATXH6YnFbksuAKapr2L7rQ==/109951163139779518.jpg?param=50y50">
+                                    <div class="commentText" >
+                                        <span href="javascript:;" class="commentUser">hxc:</span>
+                                        <span class="commentTextBox"></span>
+                                    </div>
+                                    <div class="commentBtn">
+                                        <span class="reply">回复</span>
+                                        <span class="commentBorder"></span>
+                                        <span class="like"></span>
+                                    </div>
+                                </li> -->
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -398,13 +414,21 @@
                 </li>
                 <!-- 收藏与分享 -->
                 <li class="open">
-                    <span class="songCollect"></span>
+                    <span class="songCollect" id="songCollect"></span>
                     <span class="songRecommend"></span>
                 </li>
                 <!-- 控制：音量、循环、播放列表 -->
-                <li class="controlsRight">
+                <li class="controlsRight pore">
                     <span class="controlBorder"></span>
-                    <span class="volume" id="volumeBtn"></span>
+                    <!-- 音量按钮 -->
+                    <span class="volume pointer pore" id="volumeBtn"></span>
+                    <!-- 音量控制 -->
+                    <div class="volumeControl poab hide" id="volumeControl">
+                        <div class="volumeBar poab" id="volumeBar">
+                            <div class="volumeProgress poab" id="volumeProgress"></div>
+                            <div class="volumeSpan poab pointer" id="volumeSpan"></div>
+                        </div>
+                    </div>
                     <span class="loopBtn" id="loopBtn"></span>
                     <span class="playListBtn" id="playListBtn"></span>
                 </li>
@@ -413,14 +437,14 @@
                 <div class="boxHd pore">
                     <div class="fl headLeft pore"> 
                         <div class="headTitle poab" id="playListTitle">播放列表</div>
-                        <div class="headCollect poab">
+                        <div class="headCollect poab" id="collectAll">
                             <span class="headCollectImg"></span>
-                            收藏全部
+                            <a href="javascript:;">收藏全部</a> 
                         </div>
                         <div class="headborder poab"></div>
-                        <div class="cancelAll poab">
+                        <div class="cancelAll poab" id="cancelAll">
                             <span class="cancelAllImg"></span>
-                            清除
+                            <a href="javascript:;">清除</a> 
                         </div>
                     </div>
                     <div class="fl headRight pore">

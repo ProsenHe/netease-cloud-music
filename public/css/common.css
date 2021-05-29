@@ -685,6 +685,7 @@ body {
     width: 100%;
     height: 10px;
     background: url(../data/img/playbar.png) 0 -3px;
+    cursor: pointer;
     /* transition: .5s; */
 }
 
@@ -857,6 +858,7 @@ body {
 }
 
 .musicBox ul .controlsRight .volume {
+    cursor: pointer;
     width: 19px;
     height: 18px;
     background: url(../data/img/playbar.png) no-repeat -5px -251px;
@@ -899,6 +901,7 @@ body {
 
 
 .musicBox ul .controlsRight .loopBtn {
+    cursor: pointer;
     width: 19px;
     height: 18px;
     background: url(../data/img/playbar.png) no-repeat -6px -347px;
@@ -979,6 +982,14 @@ body {
     color: #ccc;
 }
 
+.playListBox .boxHd .headLeft .headCollect a {
+    color: #ccc;
+}
+
+.playListBox .boxHd .headLeft .headCollect a:hover {
+    text-decoration: underline;
+}
+
 .playListBox .boxHd .headLeft .headCollect .headCollectImg {
     display: inline-block;
     width: 16px;
@@ -1002,6 +1013,14 @@ body {
     height: 15px;
     color: #ccc;
     top: 11px;
+}
+
+.playListBox .boxHd .headLeft .cancelAll a {
+    color: #ccc;
+}
+
+.playListBox .boxHd .headLeft .cancelAll a:hover {
+    text-decoration: underline;
 }
 
 .playListBox .boxHd .headLeft .cancelAll .cancelAllImg {
@@ -1073,6 +1092,16 @@ body {
     line-height: 13px;
 }
 
+.playList ul li .itemCancel {
+    display: inline-block;
+    top: 7px;
+    left: 370px;
+    width: 13px;
+    height: 16px;
+    vertical-align: middle;
+    background: url(../data/img/playlist.png) no-repeat -51px 0;
+}
+
 .playListBox .boxBd .boxBorder {
     width: 6px;
     height: 260px;
@@ -1086,3 +1115,20 @@ body {
 
 /* 列表页end */
 /* 音乐播放器end */
+/* 收藏成功 */
+.collectFeedback {
+    display: none;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 20;
+    position: fixed;
+    width: 100px;
+    height: 30px;
+    background-color: #fff;
+    text-align: center;
+    line-height: 30px;
+    font-size: 13px;
+    border-radius: 3px;
+    box-shadow: -3px 3px 10px rgb(0 0 0 / 41%);
+}

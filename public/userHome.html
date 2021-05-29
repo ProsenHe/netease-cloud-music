@@ -202,7 +202,8 @@
     <!-- 遮挡层 -->
     <div class="loginBg hide" id="loginBg"></div>
     <!-- 登录填写模块end -->
-
+    <!-- 收藏成功 -->
+    <div class="collectFeedback" id="collectFeedback"></div>
     <!-- 返回顶部start -->
     <div class="returnTop hide" id="returnTop"></div>
     <!-- 返回顶部end -->
@@ -340,13 +341,21 @@
                  </li>
                  <!-- 收藏与分享 -->
                  <li class="open">
-                     <span class="songCollect"></span>
+                     <span class="songCollect" id="songCollect"></span>
                      <span class="songRecommend"></span>
                  </li>
                  <!-- 控制：音量、循环、播放列表 -->
-                 <li class="controlsRight">
+                 <li class="controlsRight pore">
                      <span class="controlBorder"></span>
-                     <span class="volume" id="volumeBtn"></span>
+                     <!-- 音量按钮 -->
+                    <span class="volume pointer pore" id="volumeBtn"></span>
+                     <!-- 音量控制 -->
+                    <div class="volumeControl poab hide" id="volumeControl">
+                        <div class="volumeBar poab" id="volumeBar">
+                            <div class="volumeProgress poab" id="volumeProgress"></div>
+                            <div class="volumeSpan poab pointer" id="volumeSpan"></div>
+                        </div>
+                    </div>
                      <span class="loopBtn" id="loopBtn"></span>
                      <span class="playListBtn" id="playListBtn"></span>
                  </li>
@@ -355,15 +364,15 @@
                  <div class="boxHd pore">
                      <div class="fl headLeft pore"> 
                          <div class="headTitle poab" id="playListTitle">播放列表</div>
-                         <div class="headCollect poab">
-                             <span class="headCollectImg"></span>
-                             收藏全部
-                         </div>
+                         <div class="headCollect poab" id="collectAll">
+                            <span class="headCollectImg"></span>
+                            <a href="javascript:;">收藏全部</a> 
+                        </div>
                          <div class="headborder poab"></div>
-                         <div class="cancelAll poab">
-                             <span class="cancelAllImg"></span>
-                             清除
-                         </div>
+                         <div class="cancelAll poab" id="cancelAll">
+                            <span class="cancelAllImg"></span>
+                            <a href="javascript:;">清除</a> 
+                        </div>
                      </div>
                      <div class="fl headRight pore">
                          <div class="songName"></div>
@@ -373,7 +382,6 @@
                  <div class="boxBd pore">
                      <div class="playList fl" >
                          <ul id="songListUl">
-                             
                          </ul>
                      </div>
                      <div class="boxBorder fl"></div>

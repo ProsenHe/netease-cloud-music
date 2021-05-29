@@ -76,9 +76,14 @@
 .billList .boxBd li {
     padding: 6px 0 6px 20px;
     height: 55px;
+    cursor: pointer;
 }
 
-.billList .boxBd li[class='current'] {
+.billList .boxBd li:hover {
+    background-color: #E6E6E6;
+}
+
+.billList .boxBd .current {
     background-color: #e6e6e6;
 }
 
@@ -120,7 +125,7 @@
     padding-bottom: 0;
 }
 
-.myMusicUserInfoBox .likeImgBox {
+.myMusicUserInfoBox .listImgBox {
     width: 188px;
     height: 188px;
     padding: 3px;
@@ -129,7 +134,7 @@
     margin-right: 15px;
 }
 
-.myMusicUserInfoBox .likeImgBox img {
+.myMusicUserInfoBox .listImgBox img {
     width: 180px;
     height: 180px;
 }
@@ -154,6 +159,12 @@
     background-color: pink;
     vertical-align: middle;
     background: url(../data/img/icon.png) no-repeat 0 -243px;
+}
+
+.myMusicUserInfoBox .boxHd ul li:nth-child(1) .listTitle {
+    width: 270px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .myMusicUserInfoBox .boxHd ul li:nth-child(2) {
@@ -218,6 +229,7 @@
 /* 歌曲列表 */
 .songListBox {
     margin-top: 30px;
+    padding-bottom: 50px;
 }
 
 /* 头部 */
@@ -292,35 +304,36 @@
     border-right: 0;
 }
 
-.songListBox .songList {
+.songListBox .songListUl {
     border-bottom: solid 1px #ccc;
 }
 
-.songList li {
+.songListUl li {
     height: 30px;
     line-height: 30px;
 }
 
-.songList li>div {
+.songListUl li>div {
     display: inline-block;
     vertical-align: middle;
 }
 
-.songList li>div>span {
+.songListUl li>div>span {
     display: inline-block;
     vertical-align: middle;
 }
 
-.songList li:nth-child(2n) {
+.songListUl li:nth-child(2n) {
     background-color: #f7f7f7;
 }
 
-.songList li div:nth-child(1) {
+.songListUl li div:nth-child(1) {
+    cursor: pointer;
     width: 74px;
     padding-left: 10px;
 }
 
-.songList li .num {
+.songListUl li .num {
     width: 25px;
     height: 30px;
     line-height: 30px;
@@ -328,26 +341,26 @@
     padding-left: 2px;
 }
 
-.songList li .playIco {
+.songListUl li .playIco {
     width: 17px;
     height: 17px;
-    background: url(../data/img/table.png) no-repeat 0 -128px;
+    background: url(../data/img/table.png) no-repeat 0 -103px;
 }
 
-.songList li .billSongName {
+.songListUl li .billSongName {
     width: 304px;
     color: #333;
 }
 
-.songList li .duration {
+.songListUl li .duration {
     width: 110px;
 }
 
-.songList li .billArtName {
+.songListUl li .billArtName {
     width: 110px;
 }
 
-.songList li .ablum {
+.songListUl li .ablum {
     width: 130px;
     overflow: hidden;
     white-space: nowrap;
@@ -453,4 +466,73 @@
     color: #fff;
     border-radius: 3px;
     background: url(../data/img/button2.png) no-repeat -5px -1658px;
+}
+
+.commentHistory {
+    margin-top: 20px;
+    height: 102px;
+    padding: 0 32px 0 32px;
+}
+
+.commentHistory .commentHd {
+    color: #333;
+    font-weight: 700;
+    height: 20px;
+    line-height: 20px;
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.commentUl li {
+    padding: 15px 0;
+    height: 80px;
+    border-bottom: 1px dotted #ccc;
+    background-color: #fff;
+}
+
+.commentUl li .commentImg {
+    width: 50px;
+    height: 500;
+}
+
+.commentText {
+    float: left;
+    width: 612px;
+    margin-left: 10px;
+    height: 32px;
+}
+
+.commentText .commentUser {
+    color: #0c73c2;
+}
+
+.commentBtn {
+    float: left;
+    width: 612px;
+    margin-left: 10px;
+    height: 16px;
+    margin-top: 5px;
+    background-color: #fff;
+}
+
+.commentBtn .like {
+    float: right;
+    display: inline-table;
+    width: 15px;
+    height: 14px;
+    background: url(../data/img/icon2.png) -150px 0px;
+}
+
+.commentBtn .commentBorder {
+    display: inline-table;
+    margin: 0 6px;
+    width: 2px;
+    height: 14px;
+    float: right;
+    background-color: #ccc;
+}
+
+
+.commentBtn .reply {
+    display: inline-table;
+    float: right;
 }
